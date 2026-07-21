@@ -1,4 +1,5 @@
 from datetime_utils import get_datetime
+from apis import get_weather, get_coordinates
 from datetime import datetime
 def main():
     
@@ -28,20 +29,46 @@ def main():
             current_date, current_time = get_datetime()
             print(f"Date : {current_date}")
             print(f"Time : {current_time}")
+
         elif choice == 2:
-            print("Weather Selected")
+            user_city = input("entr city name: ")
+            lat, lon = get_coordinates(user_city)
+            weather = get_weather(lat, lon)
+            
+            
+            if weather is not None:
+                
+                temperature, temperature_unit, humidity, humidity_unit, wind_speed, wind_speed_unit = weather
+                print("=" * 25)
+                print(user_city)
+                print("="* 25)
+                print(f"Temperature : {temperature} {temperature_unit}")
+                print(f"Humidity : {humidity} {humidity_unit}")
+                print(f"Wind Speed : {wind_speed} {wind_speed_unit}")
+            else:
+                print("Error! City not found.")
+
+
+
+        
+                
         elif choice == 3:
             print("Bitcoin Price Selected")
+
         elif choice == 4:
             print("Calculator Selected")
+
         elif choice == 5:
             print("Currency Converter Selected")
+
         elif choice == 6:
             print("Open Website Selected")
+
         elif choice == 7:
             print("Thank you for using Pulse.")
             print("Goodbye!")
             break
+        
         else:
             print("Invalid Input!")
             print("Please select choice between 1-7.")
