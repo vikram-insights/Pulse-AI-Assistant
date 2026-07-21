@@ -1,5 +1,5 @@
 from datetime_utils import get_datetime
-from apis import get_weather, get_coordinates
+from apis import get_weather, get_coordinates, get_bitcoin_price
 from datetime import datetime
 def main():
     
@@ -53,7 +53,8 @@ def main():
         
                 
         elif choice == 3:
-            print("Bitcoin Price Selected")
+            bitcoin_price = get_bitcoin_price()
+            print(f"Current Price : $ {bitcoin_price}")
 
         elif choice == 4:
             print("Calculator Selected")
