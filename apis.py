@@ -41,7 +41,7 @@ def get_weather(latitude, longitude):
                 return None, None, None, None, None, None
         
 
-import requests
+
 def get_bitcoin_price():
         url = f"https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
 
@@ -55,6 +55,48 @@ def get_bitcoin_price():
         except requests.RequesException:
                 print("Error! Fetching the bitcoin price.")
                 return None
+
+
+
+def convert_currency(amount, source, target):
+        url = f"https://api.exchangerate.fun/latest?base=USD"
+
+        try:
+                response = requests.get(url)
+                response.raise_for_status()
+                data = response.json()
+
+                if source not in data["rates"] or target not in data["rates"]:
+                        print("Error! Invalid currency code.")
+                        return None
+                
+                source_rate = data["rates"][source]
+                target_rate = data["rates"][target]
+                
+                
+                if source == "USD":
+        
+                        target_result = amount * target_rate
+                        return target_result
+
+                elif target == "USD":
+                        usd_result = amount / source_rate
+                        return usd_result
+                else:
+                        converted_to_usd = amount / source_rate
+                        converted_to_final = converted_to_usd * target_rate
+                        return converted_to_final
+        except requests.RequestException:
+                print("Network Error")
+                return None
+
+                        
+
+
+        
+        
+
+
                 
 
 

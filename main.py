@@ -1,5 +1,5 @@
 from datetime_utils import get_datetime
-from apis import get_weather, get_coordinates, get_bitcoin_price
+from apis import get_weather, get_coordinates, get_bitcoin_price, convert_currency
 from calculator import add, subtract, multiplication, division, modulus, get_power
 from datetime import datetime
 def main():
@@ -182,16 +182,27 @@ def main():
 
                 
                                 
-                                
-                                                
-                                
-                
-                
-
+        elif choice == 5:
+            try:
+                amount = int(input("Enter amount: "))
+            except ValueError:
+                print("Invalid input!")
+                continue
             
 
-        elif choice == 5:
-            print("Currency Converter Selected")
+            source = input("Enter source currency (e.g., INR) : ").upper().strip()
+            target = input("Enter target currency (e.g., USD) : ").upper().strip()
+            result = convert_currency(amount, source, target)
+
+            if source == "USD":
+                print(f"{amount} {source} = {result:.2f} {target}")
+            elif target == "USD":
+                print(f"{amount} {source} = {result:.2f} {target}")
+            else:
+                print(f"{amount} {source} = {result:.2f} {target}")
+
+
+            
 
         elif choice == 6:
             print("Open Website Selected")
