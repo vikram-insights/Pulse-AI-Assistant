@@ -1,5 +1,6 @@
 from datetime_utils import get_datetime
 from apis import get_weather, get_coordinates, get_bitcoin_price
+from calculator import add
 from datetime import datetime
 def main():
     
@@ -57,7 +58,49 @@ def main():
             print(f"Current Price : $ {bitcoin_price}")
 
         elif choice == 4:
-            print("Calculator Selected")
+            
+            while True:
+                print("=" * 20)
+                print("CALCULATOR")
+                print("=" * 20)
+
+                print("1. Add")
+                print("2. Subtract")
+                print("3. Multiplication")
+                print("4. Division")
+                print("5. Moduler")
+                print("6. Power")
+                print("7. Exit")
+
+                try:
+                    calc_choice = int(input("Enter your choice between (1-7) : "))
+                except ValueError:
+                    print("Error! Please enter valid choice.")
+                    continue
+
+                if calc_choice == 7:
+                    print("Thank you for using calculator.")
+                    break
+                
+                
+                number = input("Enter numbers separated by spaces (e.g. 10 20 30) : ")
+                if calc_choice == 1: 
+                    try:
+                        num_list = [float(num) for num in number.split()]
+                        if num_list:
+                            result = add(num_list)
+                            print(f"Numbers entered: {num_list} ")
+                            print(f"Total Sum : {result}")
+                        else:
+                            print("0 numbers entered.")
+
+                    except ValueError:
+                        print("Error!")
+                        print("Please enter numbers only.")
+                else:
+                    print("Invalid choice input.")
+
+            
 
         elif choice == 5:
             print("Currency Converter Selected")
