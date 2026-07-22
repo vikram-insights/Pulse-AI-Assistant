@@ -2,6 +2,8 @@ from datetime_utils import get_datetime
 from apis import get_weather, get_coordinates, get_bitcoin_price, convert_currency
 from calculator import add, subtract, multiplication, division, modulus, get_power
 from datetime import datetime
+from webs_utils import open_website
+
 def main():
     
     while True:
@@ -205,7 +207,43 @@ def main():
             
 
         elif choice == 6:
-            print("Open Website Selected")
+            while True:
+                print("\n------- MENU -------")
+                print("1. YouTube")
+                print("2. Google")
+                print("3. LeetCode")
+                print("4. GitHub")
+                print("5. Instagram")
+                print("6. Vikram's Instagram")
+                print("7. Muskan's Instagram")
+                print("8. Custom URL")
+                print("9. Exit")
+
+                choice = input("Choice (1-9): ").strip()
+
+                if choice == "1":
+                    open_website("youtube")
+                elif choice == "2":
+                    open_website("google")
+                elif choice == "3":
+                    open_website("leetcode")
+                elif choice == "4":
+                    open_website("github")
+                elif choice == "5":
+                    open_website("instagram")
+                elif choice == "6":
+                    open_website("vikram")
+                elif choice == "7":
+                    open_website("muskan")
+                elif choice == "8":
+                    custom_url = input("\nEnter custom URL: ")
+                    open_website(custom_url)
+                elif choice == "9":
+                    print("Goodbye!")
+                    break
+                else:
+                    print("Invalid choice!")
+            
 
         elif choice == 7:
             print("Thank you for using Pulse.")
@@ -215,13 +253,7 @@ def main():
         else:
             print("Invalid Input!")
             print("Please select choice between 1-7.")
+
     
-    
-    
-    
-    
-    
-    
-   
 if __name__ == "__main__":
     main()
