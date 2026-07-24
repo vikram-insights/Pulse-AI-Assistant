@@ -3,6 +3,7 @@ from apis import get_weather, get_coordinates, get_bitcoin_price, convert_curren
 from calculator import add, subtract, multiplication, division, modulus, get_power
 from datetime import datetime
 from webs_utils import open_website
+from reminder_utils import add_reminder, save_reminders, load_reminders, delete_reminder, view_reminders
 
 def main():
     
@@ -17,7 +18,8 @@ def main():
         print("4. Calculator")
         print("5. Currency Converter")
         print("6. Open Website")
-        print("7. Exit")
+        print("7. Reminder")
+        print("8. Exit")
         print("=" * 25)
     
         try:
@@ -243,16 +245,88 @@ def main():
                     break
                 else:
                     print("Invalid choice!")
-            
 
         elif choice == 7:
+            while True:
+                print("========== REMINDER =========")
+                print("1. Add  Reminder")
+                print("2. View Reminder")
+                print("3. Delete Reminder")
+                print("4. Back")
+                print("=" * 30)
+
+                try:
+                    rem_choice = int(input("Enter choice (1-4): "))
+                except ValueError:
+                    print("Invalid choice! Please select between (1-4).")
+                    continue
+
+                if rem_choice == 4:
+                    print("Goodbye.")
+                    break  
+
+
+                
+                
+
+                if rem_choice == 1:
+                    task = input("What is the task? : ")
+                    if not task:
+                        print("Task cannot be empty❗")
+                        continue
+                    
+                    try:
+                        date = input("Enter Date (DD-MM-YYYY): ")
+                        actual_date = datetime.strptime(date, "%d-%m-%Y")
+                    except ValueError as e:
+                        print("Invalid date format! Please use (DD-MM-YYYY)")
+                        continue
+                                    
+                    try:
+                        time = input("Enter Time (HH:MM): ")
+                        actual_time = datetime.strptime(time, "%H:%M")
+                    except ValueError as e:
+                        print("Invalid time format!\nPlease use (HH:MM)")
+                        continue
+                    
+                    add_reminder(task, actual_date.strftime("%d-%m-%Y"), actual_time.strftime("%H:%M"))
+                    print("Reminder set successfully✅.")
+
+                elif rem_choice == 2:
+                    reminders = view_reminders()
+                    if reminders:
+                        for index, reminder in enumerate(reminders, start=1):
+                            print("=" * 30)
+                            print("Reminders loaded successfuly✅.")
+                            print("=" * 30)
+                            print(f"Reminder {index}")
+                            print(f"Task : {reminder['title']}")
+                            print(f"Date : {reminder['date']}")
+                            print(f"Time : {reminder['time']}")
+                            print("=" * 30)
+                            
+                
+                    else:
+                        print("No reminder found!")
+
+                elif rem_choice == 3:
+                    try:
+                        number = int(input("Enter reminder number : "))
+                    except ValueError as e:
+                        print("Invalid number: ")
+                        continue
+                    result = delete_reminder(number)
+                    print("Reminder deleted successfully✅.")
+
+
+        elif choice == 8:
             print("Thank you for using Pulse.")
             print("Goodbye!")
             break
         
         else:
             print("Invalid Input!")
-            print("Please select choice between 1-7.")
+            print("Please select choice between 1-8.")
 
     
 if __name__ == "__main__":
