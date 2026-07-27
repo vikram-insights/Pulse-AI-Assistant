@@ -3,7 +3,8 @@ from apis import get_weather, get_coordinates, get_bitcoin_price, convert_curren
 from calculator import add, subtract, multiplication, division, modulus, get_power
 from datetime import datetime
 from webs_utils import open_website
-from reminder_utils import add_reminder, save_reminders, load_reminders, delete_reminder, view_reminders,update_reminder
+from reminder_utils import add_reminder, delete_reminder, view_reminders,update_reminder
+import notes_utils
 
 def main():
     
@@ -19,7 +20,8 @@ def main():
         print("5. Currency Converter")
         print("6. Open Website")
         print("7. Reminder")
-        print("8. Exit")
+        print("8. Notes")
+        print("9. Exit")
         print("=" * 25)
     
         try:
@@ -28,6 +30,23 @@ def main():
         except ValueError:
             print("Error! Please enter valid input.")
             continue
+
+        if choice == 9:
+            print("-" * 30)
+            print("Thank you for using Pulse.")
+            print("Goodbye!")
+            print("-" * 30)
+            break
+                
+
+        if choice < 1 or choice > 9:
+            print("-" * 40)
+            print("Invalid Input!")
+            print("Please select choice between 1-9.")
+            print("-" * 40)
+            continue
+                
+                
 
 
         if choice == 1:
@@ -337,25 +356,102 @@ def main():
                     print("-" * 50)
                     print(result)
                     print("-" * 50)
-                   
-                    
-        
-
-                    
-
 
 
         elif choice == 8:
-            print("-" * 30)
-            print("Thank you for using Pulse.")
-            print("Goodbye!")
-            print("-" * 30)
-            break
+            while True:
+                print("\n" + "=" * 30)
+                print("      📝 NOTES MANAGER      ")
+                print("=" * 30)
+                print("1. View All Notes")
+                print("2. Add a Note")
+                print("3. Delete a Note")
+                print("4. Update a Note")
+                print("5. Search Notes")
+                print("6. Exit")
+                print("=" * 30)
         
-        else:
-            print("Invalid Input!")
-            print("Please select choice between 1-8.")
+                # --- CHOICE HANDLING AT THE TOP ---
+                try:
+                    choice = int(input("Enter your choice (1-6): "))
+                except ValueError:
+                    print("❌ Invalid input! Please enter a number.")
+                    continue
 
-    
+                if choice == 6:
+                    print("Goodbye! 👋")
+                    break
+
+                if not (1 <= choice <= 5):
+                    print("❌ Invalid choice! Please select between 1 and 6.")
+                    continue
+        
+
+                # 1. VIEW ALL NOTES
+                if choice == 1:
+                    notes = notes_utils.view_notes()
+                    if not notes:
+                        print("\n📭 No notes found.")
+                    else:
+                        for index, note in enumerate(notes, start=1):
+                            print("-" * 30)
+                            print(f"Note {index}")
+                            print(f"Title   : {note['title']}")
+                            print(f"Content : {note['content']}")
+                        print("-" * 30)
+
+                # 2. ADD A NOTE
+                elif choice == 2:
+                    title = input("Enter note title: ")
+                    content = input("Enter note content: ")
+                    notes_utils.add_notes(title, content)
+                    print("Note added successfully! ✅")
+
+                # 3. DELETE A NOTE
+                elif choice == 3:
+                    try:
+                        number = int(input("Enter note number to delete: "))
+                        success, message = notes_utils.delete_notes(number)
+                        print(message)
+                    except ValueError:
+                        print("❌ Please enter a valid note number.")
+
+                # 4. UPDATE A NOTE
+                elif choice == 4:
+                    try:
+                        number = int(input("Enter note number to update: "))
+                        print("(Leave blank and press Enter to keep current values)")
+                        new_title = input("Enter new title: ")
+                        new_content = input("Enter new content: ")
+                
+                        success, message = notes_utils.update_notes(number, new_title, new_content)
+                        print(message)
+                    except ValueError:
+                        print("❌ Please enter a valid note number.")
+
+                # 5. SEARCH NOTES
+                elif choice == 5:
+                    keyword = input("Enter keyword to search: ")
+                    success, result = notes_utils.search_notes(keyword)
+
+                    if success:
+                        for index, note in enumerate(result, start=1):
+                            print("-" * 30)
+                            print(f"Match {index}")
+                            print(f"Title   : {note['title']}")
+                            print(f"Content : {note['content']}")
+                        print("-" * 30)
+                    else:
+                        print(f"⚠️ {result}")
+
 if __name__ == "__main__":
     main()
+                        
+                        
+            
+                    
+                    
+
+                    
+                    
+
