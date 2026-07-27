@@ -256,10 +256,19 @@ Pulse AI Assistant aims to become an all-in-one personal desktop assistant capab
 
 ---
 
-👨‍💻 Author
-Bind Vikram Ashok
-Python • SQL • APIs • Data Analytics • Artificial Intelligence
-GitHub: https://github.com/vikram-insights
+# 👨‍💻 Author
+
+**Bind Vikram Ashok**
+
+**Skills**
+- Python
+- SQL
+- APIs
+- Data Analytics
+- Artificial Intelligence
+
+**GitHub**
+https://github.com/vikram-insights
 
 ---
 
