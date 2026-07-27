@@ -7,7 +7,8 @@ websites = {
         "github" : "https://github.com/",
         "instagram" : "https://www.instagram.com/",
         "vikram" : "https://www.instagram.com/viikram_11?igsh=MTd0djU2NHFnYWg1YQ==",
-        "muskan" : "https://www.instagram.com/muskankashyap2672?igsh=MXdxYTY2YjBoNzQxcQ=="
+        "muskan" : "https://www.instagram.com/muskankashyap2672?igsh=MXdxYTY2YjBoNzQxcQ==",
+        "swiggy" : "https://www.swiggy.com/"
 
     }
 

@@ -58,38 +58,40 @@ def get_bitcoin_price():
 
 
 
+
+
 def convert_currency(amount, source, target):
-        url = f"https://api.exchangerate.fun/latest?base=USD"
+    url = "https://api.exchangerate.fun/latest?base=USD"
 
-        try:
-                response = requests.get(url)
-                response.raise_for_status()
-                data = response.json()
+    #! Get data from the API
+    try:
+        response = requests.get(url, timeout=3)
+        response.raise_for_status()
+        data = response.json()
+    except requests.RequestException:
+        print("Network Error! Could not reach exchange rate server")
+        return None
 
-                if source not in data["rates"] or target not in data["rates"]:
-                        print("Error! Invalid currency code.")
-                        return None
-                
-                source_rate = data["rates"][source]
-                target_rate = data["rates"][target]
-                
-                
-                if source == "USD":
-        
-                        target_result = amount * target_rate
-                        return target_result
+    rates = data["rates"]
 
-                elif target == "USD":
-                        usd_result = amount / source_rate
-                        return usd_result
-                else:
-                        converted_to_usd = amount / source_rate
-                        converted_to_final = converted_to_usd * target_rate
-                        return converted_to_final
-        except requests.RequestException:
-                print("Network Error")
-                return None
+    #! Check source currency
+    if source not in rates:
+        print("Error! Invalid source currency code.")
+        return None
 
+    #! Check target currency
+    if target not in rates:
+        print("Error! Invalid target currency code.")
+        return None
+
+    #! Convert currency
+    source_rate = rates[source]
+    target_rate = rates[target]
+
+    converted_to_usd = amount / source_rate
+    converted_to_final = converted_to_usd * target_rate
+    
+    return converted_to_final
                         
 
 
