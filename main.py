@@ -5,6 +5,7 @@ from datetime import datetime
 from webs_utils import open_website
 from reminder_utils import add_reminder, delete_reminder, view_reminders,update_reminder
 import notes_utils
+import todo_utils
 
 def main():
     
@@ -21,7 +22,8 @@ def main():
         print("6. Open Website")
         print("7. Reminder")
         print("8. Notes")
-        print("9. Exit")
+        print("9. TODO List")
+        print("10. Exit")
         print("=" * 25)
     
         try:
@@ -31,7 +33,7 @@ def main():
             print("Error! Please enter valid input.")
             continue
 
-        if choice == 9:
+        if choice == 10:
             print("-" * 30)
             print("Thank you for using Pulse.")
             print("Goodbye!")
@@ -39,10 +41,10 @@ def main():
             break
                 
 
-        if choice < 1 or choice > 9:
+        if choice < 1 or choice > 10:
             print("-" * 40)
             print("Invalid Input!")
-            print("Please select choice between 1-9.")
+            print("Please select choice between 1-10.")
             print("-" * 40)
             continue
                 
@@ -371,7 +373,7 @@ def main():
                 print("6. Exit")
                 print("=" * 30)
         
-                # --- CHOICE HANDLING AT THE TOP ---
+                #! --- CHOICE HANDLING AT THE TOP ---
                 try:
                     choice = int(input("Enter your choice (1-6): "))
                 except ValueError:
@@ -387,7 +389,7 @@ def main():
                     continue
         
 
-                # 1. VIEW ALL NOTES
+                #! 1. VIEW ALL NOTES
                 if choice == 1:
                     notes = notes_utils.view_notes()
                     if not notes:
@@ -400,14 +402,14 @@ def main():
                             print(f"Content : {note['content']}")
                         print("-" * 30)
 
-                # 2. ADD A NOTE
+                #! 2. ADD A NOTE
                 elif choice == 2:
                     title = input("Enter note title: ")
                     content = input("Enter note content: ")
                     notes_utils.add_notes(title, content)
                     print("Note added successfully! ✅")
 
-                # 3. DELETE A NOTE
+                #! 3. DELETE A NOTE
                 elif choice == 3:
                     try:
                         number = int(input("Enter note number to delete: "))
@@ -416,7 +418,7 @@ def main():
                     except ValueError:
                         print("❌ Please enter a valid note number.")
 
-                # 4. UPDATE A NOTE
+                #! 4. UPDATE A NOTE
                 elif choice == 4:
                     try:
                         number = int(input("Enter note number to update: "))
@@ -429,7 +431,7 @@ def main():
                     except ValueError:
                         print("❌ Please enter a valid note number.")
 
-                # 5. SEARCH NOTES
+                #! 5. SEARCH NOTES
                 elif choice == 5:
                     keyword = input("Enter keyword to search: ")
                     success, result = notes_utils.search_notes(keyword)
@@ -443,6 +445,136 @@ def main():
                         print("-" * 30)
                     else:
                         print(f"⚠️ {result}")
+
+
+        if choice == 9:
+            while True:
+                print("\n" + "=" * 30)
+                print("      📝 TODO MANAGER      ")
+                print("=" * 30)
+                print("1. Add Task")
+                print("2. View Task")
+                print("3. Update Task")
+                print("4. Delete Task")
+                print("5. Search Task")
+                print("6. Mark Completed")
+                print("7. Back")
+                print("=" * 30)
+
+                #! ---------- CHOICE HANDLING AT THE TOP ----------
+                try:
+                    todo_choice = int(input("Enter choice (1-7) : "))
+                except ValueError as e:
+                    print("Invalid Input ❌")
+                    continue
+
+                if todo_choice == 7:
+                    print("-" * 35)
+                    print("Thank you for using!")
+                    print("Goodbye 👋")
+                    print("-" * 35)
+                    break
+
+                if todo_choice < 1 or todo_choice > 7:
+                    print("Invalid choice ❌")
+                    print("Please select between (1-7).")
+                    continue
+
+
+
+                #! 1. ADD TASK
+                if todo_choice == 1:
+                    task = input("Enter the task : ")
+                    if task.strip().lower():
+                        todo_utils.add_task(task)
+                        print("-" * 35)
+                        print("Task added successfully✅")
+                        print("-" * 35)
+                    else:
+                        print("Task cannot be empty!")
+
+
+                #! 2. VIEW TASKS
+                elif todo_choice == 2:
+                    tasks = todo_utils.view_todos()
+                    if not tasks:
+                        print("\n📭 No tasks found.")
+                    else:
+                        for index, task in enumerate(tasks, start=1):
+                            print("-" * 30)
+                            print(index)
+                            print(f"Task   : {task['task']}")
+            
+                            #! Dynamic status assignment
+                            status = "Completed ✅" if task["completed"] else "Pending⌛"
+                            print(f"Status : {status}")
+                        print("-" * 30)
+
+                #! 3. UPDATE TASK
+                elif todo_choice == 3:
+                    try:
+                        number = int(input("Enter task number : "))
+                        new_task = input("Enter new task : ")
+                        success, message = todo_utils.update_todos(number, new_task)
+                        print(message)
+                    except ValueError as e:
+                        print("❌Please entre a valid task number.")
+
+
+                #! 4. DELETE TASK
+                elif todo_choice == 4:
+                    try:
+                        task_number = int(input("Enter the task number : "))
+                        success, message = todo_utils.delete_todos(task_number)
+                        print(message)
+                    except ValueError as e:
+                        print("❌Please entre a valid task number.")
+
+
+                #! SEARCH TASK
+                elif todo_choice == 5:
+                    keyword = input("Enter keyword to search: ")
+                    success, result = todo_utils.search_todos(keyword)
+                    
+                    if success:
+                        for index, task in enumerate(result, start=1):
+                            if task["completed"] == True:
+                                print("-" * 30)
+                                print(index)
+                                print(f"Task   : {task['task']}")
+                                print(f"Status : Completed ✅")
+                            else:
+                                print("-" * 30)
+                                print(index)
+                                print(f"Task   : {task['task']}")
+                                print(f"Status : Pending⌛")
+                        print("-" * 30)
+                            
+                    else:
+                        print(f"⚠️  {result}")
+
+
+
+                #! MARK COMPLETED
+                elif todo_choice == 6:
+                    try:
+                        task_number = int(input("Enter task number : "))
+                        response = input("Enter 'Yes/yes' to mark complete : ")
+                        success, message = todo_utils.mark_completed(task_number, response)
+                        print(message)
+                    except ValueError as e:
+                        print("❌Please entre a valid task number.")
+                    
+
+                
+                    
+                                            
+
+                                
+
+
+
+        
 
 if __name__ == "__main__":
     main()
