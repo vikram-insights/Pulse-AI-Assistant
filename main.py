@@ -8,7 +8,7 @@ import notes_utils
 import todo_utils
 
 def main():
-    
+
     while True:
         print("=" * 25)
         print("PULSE AI ASSISTANT")
@@ -25,10 +25,10 @@ def main():
         print("9. TODO List")
         print("10. Exit")
         print("=" * 25)
-    
+
         try:
             choice = int(input("Enter your choice :  "))
-        
+
         except ValueError:
             print("Error! Please enter valid input.")
             continue
@@ -39,7 +39,6 @@ def main():
             print("Goodbye!")
             print("-" * 30)
             break
-                
 
         if choice < 1 or choice > 10:
             print("-" * 40)
@@ -47,9 +46,6 @@ def main():
             print("Please select choice between 1-10.")
             print("-" * 40)
             continue
-                
-                
-
 
         if choice == 1:
             current_date, current_time = get_datetime()
@@ -60,10 +56,9 @@ def main():
             user_city = input("entr city name: ")
             lat, lon = get_coordinates(user_city)
             weather = get_weather(lat, lon)
-            
-            
+
             if weather is not None:
-                
+
                 temperature, temperature_unit, humidity, humidity_unit, wind_speed, wind_speed_unit = weather
                 print("=" * 25)
                 print(user_city)
@@ -74,16 +69,12 @@ def main():
             else:
                 print("Error! City not found.")
 
-
-
-        
-                
         elif choice == 3:
             bitcoin_price = get_bitcoin_price()
             print(f"Current Price : $ {bitcoin_price}")
 
         elif choice == 4:
-            
+
             while True:
                 print("=" * 20)
                 print("CALCULATOR")
@@ -111,7 +102,7 @@ def main():
                     print("Invalid choice input!")
                     print("Please select between (1-7).")
                     continue
-                
+
                 number = input("Enter numbers separated by spaces (e.g. 10 20 30) : ")
 
                 if calc_choice == 1: 
@@ -127,7 +118,6 @@ def main():
                     except ValueError:
                         print("Error!")
                         print("Please enter numbers only.")
-                
 
                 elif calc_choice == 2: 
                     try:
@@ -138,7 +128,7 @@ def main():
                             print(f"Subtraction Result : {result}")
                         else:
                             print("0 numbers entered.")
-                
+
                     except ValueError:
                         print("Error!")
                         print("Please enter numbers only.")
@@ -152,11 +142,10 @@ def main():
                             print(f"Multiplication Result : {result}")
                         else:
                             print("0 numbers entered.")
-                                
+
                     except ValueError:
                         print("Error!")
                         print("Please enter numbers only.")
-
 
                 elif calc_choice == 4: 
                     try:
@@ -167,11 +156,10 @@ def main():
                             print(f"Division Result : {result:.2f}")
                         else:
                             print("0 numbers entered.")
-                                                
+
                     except ValueError:
                         print("Error!")
                         print("Please enter numbers only.")
-
 
                 elif calc_choice == 5: 
                     try:
@@ -182,31 +170,28 @@ def main():
                             print(f"Modulus Result : {result}")
                         else:
                             print("0 numbers entered.")
-                                                                
+
                     except ValueError:
                         print("Error!")
                         print("Please enter numbers only.")
-
 
                 elif calc_choice == 6: 
                     try:
                         num_list = [float(num) for num in number.split()]
                         power = int(input("Enter power (e.g 1, 2 10) : "))
-                                         
+
                         if num_list:
                             result = get_power(num_list, power)
-                                
+
                             print(f"Numbers entered: {num_list} ")
                             print(f"Power result respectively : {result}")
                         else:
                             print("0 numbers entered.")
-                                                                
+
                     except ValueError:
                         print("Error!")
                         print("Please enter numbers only.")
 
-                
-                                
         elif choice == 5:
             try:
                 amount = float(input("Enter amount: "))
@@ -224,9 +209,6 @@ def main():
                 print("-" * 30)
                 print(f"{amount} {source} = {result:.2f} {target}") 
                 print("-" * 30)       
-
-
-            
 
         elif choice == 6:
             while True:
@@ -290,30 +272,26 @@ def main():
                     print("Goodbye.")
                     break  
 
-
-                
-                
-
                 if rem_choice == 1:
                     task = input("What is the task? : ")
                     if not task:
                         print("Task cannot be empty❗")
                         continue
-                    
+
                     try:
                         date = input("Enter Date (DD-MM-YYYY): ")
                         actual_date = datetime.strptime(date, "%d-%m-%Y")
                     except ValueError as e:
                         print("Invalid date format! Please use (DD-MM-YYYY)")
                         continue
-                                    
+
                     try:
                         time = input("Enter Time (HH:MM): ")
                         actual_time = datetime.strptime(time, "%H:%M")
                     except ValueError as e:
                         print("Invalid time format!\nPlease use (HH:MM)")
                         continue
-                    
+
                     add_reminder(task, actual_date.strftime("%d-%m-%Y"), actual_time.strftime("%H:%M"))
                     print("Reminder set successfully✅.")
 
@@ -329,8 +307,7 @@ def main():
                             print(f"Date : {reminder['date']}")
                             print(f"Time : {reminder['time']}")
                             print("=" * 30)
-                            
-                
+
                     else:
                         print("No reminder found!")
 
@@ -359,7 +336,6 @@ def main():
                     print(result)
                     print("-" * 50)
 
-
         elif choice == 8:
             while True:
                 print("\n" + "=" * 30)
@@ -372,7 +348,7 @@ def main():
                 print("5. Search Notes")
                 print("6. Exit")
                 print("=" * 30)
-        
+
                 #! --- CHOICE HANDLING AT THE TOP ---
                 try:
                     choice = int(input("Enter your choice (1-6): "))
@@ -387,7 +363,6 @@ def main():
                 if not (1 <= choice <= 5):
                     print("❌ Invalid choice! Please select between 1 and 6.")
                     continue
-        
 
                 #! 1. VIEW ALL NOTES
                 if choice == 1:
@@ -425,7 +400,7 @@ def main():
                         print("(Leave blank and press Enter to keep current values)")
                         new_title = input("Enter new title: ")
                         new_content = input("Enter new content: ")
-                
+
                         success, message = notes_utils.update_notes(number, new_title, new_content)
                         print(message)
                     except ValueError:
@@ -446,14 +421,14 @@ def main():
                     else:
                         print(f"⚠️ {result}")
 
-
         if choice == 9:
+
             while True:
                 print("\n" + "=" * 30)
-                print("      📝 TODO MANAGER      ")
+                print("      📝 TODO MANAGER")
                 print("=" * 30)
                 print("1. Add Task")
-                print("2. View Task")
+                print("2. View Tasks")
                 print("3. Update Task")
                 print("4. Delete Task")
                 print("5. Search Task")
@@ -461,129 +436,166 @@ def main():
                 print("7. Back")
                 print("=" * 30)
 
-                #! ---------- CHOICE HANDLING AT THE TOP ----------
                 try:
-                    todo_choice = int(input("Enter choice (1-7) : "))
-                except ValueError as e:
-                    print("Invalid Input ❌")
+                    todo_choice = int(input("Enter choice (1-7): "))
+                except ValueError:
+                    print("❌ Invalid input!")
                     continue
 
                 if todo_choice == 7:
-                    print("-" * 35)
-                    print("Thank you for using!")
-                    print("Goodbye 👋")
-                    print("-" * 35)
+                    print("👋 Returning to Main Menu...")
                     break
 
-                if todo_choice < 1 or todo_choice > 7:
-                    print("Invalid choice ❌")
-                    print("Please select between (1-7).")
+                if todo_choice not in range(1, 8):
+                    print("❌ Invalid choice!")
                     continue
 
-
-
-                #! 1. ADD TASK
+                #! ================= ADD TASK =================
                 if todo_choice == 1:
-                    task = input("Enter the task : ")
-                    if task.strip().lower():
-                        todo_utils.add_task(task)
-                        print("-" * 35)
-                        print("Task added successfully✅")
-                        print("-" * 35)
-                    else:
-                        print("Task cannot be empty!")
 
+                    task = input("Enter task: ").strip()
 
-                #! 2. VIEW TASKS
+                    if not task:
+                        print("❌ Task cannot be empty!")
+                        continue
+
+                    print("\nPriority")
+                    print("1. High")
+                    print("2. Medium")
+                    print("3. Low")
+
+                    priority_map = {
+                        1: "High",
+                        2: "Medium",
+                        3: "Low"
+                    }
+
+                    try:
+                        priority_choice = int(input("Enter choice: "))
+                        priority = priority_map.get(priority_choice)
+
+                        if not priority:
+                            print("❌ Invalid priority!")
+                            continue
+
+                        todo_utils.add_task(task, priority)
+                        print("✅ Task added successfully!")
+
+                    except ValueError:
+                        print("❌ Enter a valid number!")
+
+                #! ================= VIEW TASKS =================
                 elif todo_choice == 2:
+
                     tasks = todo_utils.view_todos()
+
                     if not tasks:
                         print("\n📭 No tasks found.")
-                    else:
-                        for index, task in enumerate(tasks, start=1):
-                            print("-" * 30)
-                            print(index)
-                            print(f"Task   : {task['task']}")
-            
-                            #! Dynamic status assignment
-                            status = "Completed ✅" if task["completed"] else "Pending⌛"
-                            print(f"Status : {status}")
-                        print("-" * 30)
+                        continue
 
-                #! 3. UPDATE TASK
+                    for index, task in enumerate(tasks, start=1):
+
+                        created_at = datetime.fromisoformat(task["created_at"])
+                        created_at = created_at.strftime("%d %B, %Y %I:%M %p")
+
+                        #! Show completed time only if task is completed
+                        if task["completed_at"]:
+                            completed_at = datetime.fromisoformat(task["completed_at"])
+                            completed_at = completed_at.strftime("%d %B, %Y %I:%M %p")
+                        else:
+                            completed_at = "Not Completed"
+
+                        status = "Completed ✅" if task["completed"] else "Pending ⌛"
+
+                        print("-" * 35)
+                        print(f"Task No      : {index}")
+                        print(f"Task         : {task['task']}")
+                        print(f"Created At   : {created_at}")
+                        print(f"Status       : {status}")
+                        print(f"Priority     : {task['priority']}")
+                        print(f"Completed At : {completed_at}")
+
+                    print("-" * 35)
+
+                #! ================= UPDATE TASK =================
                 elif todo_choice == 3:
+
                     try:
-                        number = int(input("Enter task number : "))
-                        new_task = input("Enter new task : ")
-                        success, message = todo_utils.update_todos(number, new_task)
-                        print(message)
-                    except ValueError as e:
-                        print("❌Please entre a valid task number.")
+                        number = int(input("Enter task number: "))
+                    except ValueError:
+                        print("❌ Invalid task number!")
+                        continue
 
+                    new_task = input("New task (Enter to skip): ")
 
-                #! 4. DELETE TASK
+                    print("\nPriority")
+                    print("1. High")
+                    print("2. Medium")
+                    print("3. Low")
+
+                    priority_map = {
+                        "1": "High",
+                "2": "Medium",
+                        "3": "Low"
+                    }
+
+                    priority_choice = input("Enter choice (Enter to skip): ").strip()
+                    new_priority = priority_map.get(priority_choice)
+
+                    success, message = todo_utils.update_todos(
+                        number,
+                        new_task,
+                        new_priority
+                    )
+
+                    print(message)
+
+                #! ================= DELETE TASK =================
                 elif todo_choice == 4:
+
                     try:
-                        task_number = int(input("Enter the task number : "))
-                        success, message = todo_utils.delete_todos(task_number)
+                        number = int(input("Enter task number: "))
+                        success, message = todo_utils.delete_todos(number)
                         print(message)
-                    except ValueError as e:
-                        print("❌Please entre a valid task number.")
 
+                    except ValueError:
+                        print("❌ Invalid task number!")
 
-                #! SEARCH TASK
+                #! ================= SEARCH TASK =================
                 elif todo_choice == 5:
-                    keyword = input("Enter keyword to search: ")
+
+                    keyword = input("Enter keyword: ")
+
                     success, result = todo_utils.search_todos(keyword)
-                    
-                    if success:
-                        for index, task in enumerate(result, start=1):
-                            if task["completed"] == True:
-                                print("-" * 30)
-                                print(index)
-                                print(f"Task   : {task['task']}")
-                                print(f"Status : Completed ✅")
-                            else:
-                                print("-" * 30)
-                                print(index)
-                                print(f"Task   : {task['task']}")
-                                print(f"Status : Pending⌛")
+
+                    if not success:
+                        print(result)
+                        continue
+
+                    for index, task in enumerate(result, start=1):
+
+                        status = "Completed ✅" if task["completed"] else "Pending ⌛"
+
                         print("-" * 30)
-                            
-                    else:
-                        print(f"⚠️  {result}")
+                        print(f"{index}. {task['task']}")
+                        print(f"Status : {status}")
 
+                    print("-" * 30)
 
-
-                #! MARK COMPLETED
+                #! ================= MARK COMPLETED =================
                 elif todo_choice == 6:
+
                     try:
-                        task_number = int(input("Enter task number : "))
-                        response = input("Enter 'Yes/yes' to mark complete : ")
-                        success, message = todo_utils.mark_completed(task_number, response)
-                        print(message)
-                    except ValueError as e:
-                        print("❌Please entre a valid task number.")
-                    
+                        number = int(input("Enter task number: "))
+                    except ValueError:
+                        print("❌ Invalid task number!")
+                        continue
 
-                
-                    
-                                            
+                    response = input("Mark as completed? (yes/no): ")
 
-                                
+                    success, message = todo_utils.mark_completed(number, response)
+                    print(message)
 
-
-
-        
 
 if __name__ == "__main__":
     main()
-                        
-                        
-            
-                    
-                    
-
-                    
-                    
-
