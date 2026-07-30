@@ -6,6 +6,7 @@ from webs_utils import open_website
 from reminder_utils import add_reminder, delete_reminder, view_reminders,update_reminder
 import notes_utils
 import todo_utils
+import pomodoro
 
 def main():
 
@@ -23,7 +24,8 @@ def main():
         print("7. Reminder")
         print("8. Notes")
         print("9. TODO List")
-        print("10. Exit")
+        print("10. Pomodoro")
+        print("11. Exit")
         print("=" * 25)
 
         try:
@@ -33,7 +35,7 @@ def main():
             print("Error! Please enter valid input.")
             continue
 
-        if choice == 10:
+        if choice == 11:
             print("-" * 30)
             print("Thank you for using Pulse.")
             print("Goodbye!")
@@ -43,7 +45,7 @@ def main():
         if choice < 1 or choice > 10:
             print("-" * 40)
             print("Invalid Input!")
-            print("Please select choice between 1-10.")
+            print("Please select choice between 1-11.")
             print("-" * 40)
             continue
 
@@ -596,6 +598,70 @@ def main():
                     success, message = todo_utils.mark_completed(number, response)
                     print(message)
 
+        if choice == 10:
+            while True:
+                print("=" * 30)
+                print("         🍅 POMODORO")
+                print("=" * 30)
+                print("1. Start Pomodoro")
+                print("2. Custome Timer")
+                print("3. Back")
+                print("=" * 30)
+
+
+                #! ----- CHOICE HANDLING AT THE TOP -----
+                try:
+                    pom_choice = int(input("Enter choice (1-3) : "))
+                except ValueError as e:
+                    print("❌Invalid input")
+                    continue
+
+                if pom_choice == 3:
+                    print("Thank you for using!")
+                    print("Goodbye👋")
+                    break
+
+                if pom_choice < 1 or pom_choice > 3:
+                    print("❌Invalid choice input.")
+                    continue
+
+                #! START POMODORO AUTOMATICALLY
+                if pom_choice == 1:
+                    success, result = pomodoro.start_pomodoro(0, 25)
+                    if success:
+                        print("-" * 30)
+                        (pomodoro.countdown(result))
+                        print("-" * 30)
+                    else:
+                        print(result)
+
+                #! START POMODORO CUSTOME
+                elif pom_choice == 2:
+                    try:
+                        hours = input("Enter hours (Press Enter to skip hours) : ")
+                        minutes = input("Enter minutes between (Press enter to skip minutes) : ")
+                        hours = int(hours) if hours else 0
+                        minutes = int(minutes) if minutes else 0
+                        success, result = pomodoro.start_pomodoro(hours, minutes)
+                        if success:
+                            print("-" * 30)
+                            (pomodoro.countdown(result))
+                            print("-" * 30)
+                        else:
+                            print(result)
+                    except ValueError as e:
+                        print("❌Invalid input.")
+                    
+                    
+
+
+                    
+
+
 
 if __name__ == "__main__":
     main()
+
+
+
+
