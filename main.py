@@ -7,6 +7,7 @@ from reminder_utils import add_reminder, delete_reminder, view_reminders,update_
 import notes_utils
 import todo_utils
 import pomodoro
+import calendar_utils
 
 def main():
 
@@ -25,7 +26,8 @@ def main():
         print("8. Notes")
         print("9. TODO List")
         print("10. Pomodoro")
-        print("11. Exit")
+        print("11. Calendar")
+        print("12. Exit")
         print("=" * 25)
 
         try:
@@ -35,17 +37,17 @@ def main():
             print("Error! Please enter valid input.")
             continue
 
-        if choice == 11:
+        if choice == 12:
             print("-" * 30)
             print("Thank you for using Pulse.")
             print("Goodbye!")
             print("-" * 30)
             break
 
-        if choice < 1 or choice > 10:
+        if choice < 1 or choice > 12:
             print("-" * 40)
             print("Invalid Input!")
-            print("Please select choice between 1-11.")
+            print("Please select choice between 1-12.")
             print("-" * 40)
             continue
 
@@ -55,7 +57,7 @@ def main():
             print(f"Time : {current_time}")
 
         elif choice == 2:
-            user_city = input("entr city name: ")
+            user_city = input("Enter city name : ")
             lat, lon = get_coordinates(user_city)
             weather = get_weather(lat, lon)
 
@@ -651,6 +653,64 @@ def main():
                             print(result)
                     except ValueError as e:
                         print("❌Invalid input.")
+
+        if choice == 11:
+            while True:
+                print("=" * 30)
+                print("CALENDAR")
+                print("=" * 30)
+                print("1. Current Month Calendar")
+                print("2. Custome Month Calendar")
+                print("3. Full Year Calendar")
+                print("4. Check Leap Year")
+                print("5. Find Day of a Date")
+                print("6. Dais in a Month")
+                print("7. Back")
+                print("=" * 30)
+
+                #! -------- CHOICE HANDLING AT TOP --------
+                try:
+                    cal_choice = int(input("Enter choice (1-7) : "))
+                except ValueError as e:
+                    print("❌Invlai choice input!")
+                    continue
+
+                if cal_choice == 7:
+                    print("-" * 26)
+                    print("Thank you for using!")
+                    print("Goodbye👋")
+                    print("-" * 26)
+                    break
+
+
+                if cal_choice < 1 and cal_choice > 7:
+                    print("❌Invalid choice!")
+                    continue
+
+
+                if cal_choice == 1:
+                    print("-" * 30)
+                    print(calendar_utils.current_month())
+                    print("-" * 30)
+
+                elif cal_choice == 2:
+                    try:
+                        year = int(input("Enter year (e.g. 1655, 2016): "))
+                        month = input("Enter month name or number : ")
+                        success, result = calendar_utils.show_custom_month(year, month)
+
+                        if success:
+                            print("-" * 30)
+                            print(result)
+                            print("-" * 30)
+                        else:
+                            print(result)
+                    except ValueError as e:
+                        print("Error! Year must be a number.")
+
+
+
+
                     
                     
 
