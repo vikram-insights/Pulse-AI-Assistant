@@ -10,32 +10,24 @@ def current_month():
     return month_view
 
 
-
-#! 2. SHOW CUSTOM MONTH
-def show_custom_month(year, month):
-
-    # 1. Check empty inputs
-    if not year and not month:
-        return False, "Error! Both year and month are missing."
-
-    if not year:
-        return False, "Error! Year is missing."
-
-    if not month:
-        return False, "Error! Month is missing."
-
+#! 2. VALIDATING YEAR
+def validate_year(year):
     # 2. Validate year
     if isinstance(year, float):
         return False, "Error! Year cannot be a float value"
-
-    if year < 1:
-        return False, "Error! Year must be positive."
     
     if not isinstance(year, int):
         return False, "Error! Year must be a number."
+    
+    elif year < 1:
+        return False, "Error! Year must be positive."
+
+    else:
+        return True, year
 
 
-
+#! 3. VALIDATING MONTH
+def validate_month(month):
     # 3. Validate month
     if isinstance(month, str):
         cleaned_month = month.strip()
@@ -61,6 +53,9 @@ def show_custom_month(year, month):
                     return False, f"Error! '{month}' is not a valid month."
 
     # If month is entered as an integer
+    elif isinstance(month, float):
+        return False, "Month cannot be a float value"
+
     elif isinstance(month, int):
         if 1 <= month <= 12:
             month_num = month
@@ -70,7 +65,31 @@ def show_custom_month(year, month):
     else:
         return False, "Error! Wrong month type."
 
-    # 4. Generate calendar
-    result = calendar.month(year, month_num)
+    return True, month_num
 
+#! 4. SHOW CUSTOM NONTH FUNCTION
+def show_custom_month(year, month):
+    # 1. Check empty inputs
+    if not year and not month:
+        return False, "Error! Both year and month are missing."
+
+    if not year:
+        return False, "Error! Year is missing."
+
+    if not month:
+        return False, "Error! Month is missing."
+
+    # 2. Validate year
+    year_success, year_result = validate_year(year)
+    if not year_success:
+        return False, year_result  # Return the error message from helper
+
+    # 3. Validate month
+    month_success, month_result = validate_month(month)
+    if not month_success:
+        return False, month_result  # Return the error message from helper
+
+    # 4. Generate calendar
+    result = calendar.month(year_result, month_result)
     return True, result
+
