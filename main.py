@@ -656,14 +656,14 @@ def main():
         if choice == 11:
             while True:
                 print("=" * 30)
-                print("         📆 CALENDAR")
+                print("      📆 CALENDAR MENU")
                 print("=" * 30)
-                print("1. Current Month Calendar")
-                print("2. Custome Month Calendar")
-                print("3. Full Year Calendar")
+                print("1. Show Current Calendar")
+                print("2. Show Custome Month")
+                print("3. Show Full Year")
                 print("4. Check Leap Year")
-                print("5. Find Day of a Date")
-                print("6. Dais in a Month")
+                print("5. Days in a Month")
+                print("6. Find Weekday")
                 print("7. Back")
                 print("=" * 30)
 
@@ -674,6 +674,7 @@ def main():
                     print("❌ Invalid choice input!")
                     continue
 
+                
                 if cal_choice == 7:
                     print("-" * 26)
                     print("Thank you for using!")
@@ -681,36 +682,71 @@ def main():
                     print("-" * 26)
                     break
 
+                #! Choice validation
                 if cal_choice < 1 and cal_choice > 7:
                     print("❌Invalid choice!")
                     continue
 
+                #! 1. Show current month calendar
                 if cal_choice == 1:
                     print("-" * 30)
                     print(calendar_utils.current_month())
                     print("-" * 30)
 
+                #! 2. Show custom month calendar
                 elif cal_choice == 2:
-                    try:
-                        year = int(input("Enter year (e.g. 1655, 2016): "))
-                        month = input("Enter month name or number : ")
-                        success, result = calendar_utils.show_custom_month(year, month)
+                    year = input("Enter year (e.g. 1655, 2016): ")
+                    month = input("Enter month name or number : ")
+                    success, result = calendar_utils.show_custom_month(year, month)
+                    print("-" * 30)
+                    print(result)
+                    print("-" * 30)
+                    
+                    
+                        
 
-                        if success:
-                            print("-" * 30)
-                            print(result)
-                            print("-" * 30)
-                        else:
-                            print(result)
-                    except ValueError:
-                        print("Error! Year must be a number.")
-
+                #! 3. Show whole year calendar
                 elif cal_choice == 3:
                     year = input("Enter year (e.g. 1655, 2016): ")
                     success, result = calendar_utils.show_custom_year(year)
                     print("-" * 80)
                     print(result)
                     print("-" * 80)
+
+                #! 4. Check is leap year ?
+                elif cal_choice == 4:
+                    year = input("Enter year (e.g. 1655, 2016): ")
+                    success, result = calendar_utils.check_leap_year(year)
+                    print("-" * 30)
+                    print(result)
+                    print("-" * 30)
+
+
+                #! 5. Day in a month
+                elif cal_choice == 5:
+                    year =  (input("Enter year (e.g. 1655, 2016): "))
+                    month = input("Enter month name or number : ")
+                    success, result = calendar_utils.days_in_month(year, month)
+                    print("-" * 30)
+                    print(result)
+                    print("-" * 30)
+
+
+                #! 6. Find day of a given date
+                elif cal_choice == 6:
+                    year =  input("Enter year (e.g. 1655, 2016): ")
+                    month = input("Enter month name or number : ")
+                    day = input("Enter day : ")
+                    success, result = calendar_utils.show_weekday(year, month, day)
+                    print("-" * 30)
+                    print(result)
+                    print("-" * 30)
+                    
+
+                    
+                    
+
+                
                         
 
 
