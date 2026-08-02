@@ -12,18 +12,34 @@ def current_month():
 
 #! 2. VALIDATING YEAR
 def validate_year(year):
-    # 2. Validate year
-    if isinstance(year, float):
-        return False, "Error! Year cannot be a float value"
-    
-    if not isinstance(year, int):
-        return False, "Error! Year must be a number."
-    
-    elif year < 1:
-        return False, "Error! Year must be positive."
+    """
+    Validates and parses a year input.
+    Returns (True, year) if valid, otherwise (False, error message).
+    """
+
+    # 1. Remove extra spaces
+    cleaned_year = year.strip()
+
+    # 2. Check empty strings
+    if not cleaned_year:
+        return False, "Year cannot be empty!"
+
+    # 3. Checks float value
+    elif "." in cleaned_year:
+        return False, "Year cannot be a float value! "
 
     else:
-        return True, year
+        try:
+            # 4. Convert string into integer
+            final_year = int(cleaned_year)
+            # 5. Validate year should not be less than 0
+            if final_year < 1:
+                return False, "Year must be a positive number!"
+            else:
+                # 6. Return year on success
+                return True, final_year
+        except ValueError:
+            return False, "Year must be a number!"
 
 
 #! 3. VALIDATING MONTH
@@ -67,6 +83,7 @@ def validate_month(month):
 
     return True, month_num
 
+
 #! 4. SHOW CUSTOM NONTH FUNCTION
 def show_custom_month(year, month):
     # 1. Check empty inputs
@@ -93,3 +110,18 @@ def show_custom_month(year, month):
     result = calendar.month(year_result, month_result)
     return True, result
 
+
+#! 5. SHOW CUSTOME CALENDAR YEAR FUNCTION
+def show_custom_year(year):
+    if year == "":
+        return False, "Year cannot be empty!"
+    
+
+    # 1. Validate Year
+    year_success, year_result = validate_year(year)
+    if not year_success:
+        return False, year_result
+
+    # 2. Generate Calendar
+    result = calendar.calendar(year_result)
+    return True, result

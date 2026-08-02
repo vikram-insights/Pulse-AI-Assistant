@@ -40,7 +40,7 @@ def main():
         if choice == 12:
             print("-" * 30)
             print("Thank you for using Pulse.")
-            print("Goodbye!")
+            print("Goodbye👋")
             print("-" * 30)
             break
 
@@ -610,7 +610,6 @@ def main():
                 print("3. Back")
                 print("=" * 30)
 
-
                 #! ----- CHOICE HANDLING AT THE TOP -----
                 try:
                     pom_choice = int(input("Enter choice (1-3) : "))
@@ -657,7 +656,7 @@ def main():
         if choice == 11:
             while True:
                 print("=" * 30)
-                print("CALENDAR")
+                print("         📆 CALENDAR")
                 print("=" * 30)
                 print("1. Current Month Calendar")
                 print("2. Custome Month Calendar")
@@ -672,7 +671,7 @@ def main():
                 try:
                     cal_choice = int(input("Enter choice (1-7) : "))
                 except ValueError as e:
-                    print("❌Invlai choice input!")
+                    print("❌ Invalid choice input!")
                     continue
 
                 if cal_choice == 7:
@@ -682,11 +681,9 @@ def main():
                     print("-" * 26)
                     break
 
-
                 if cal_choice < 1 and cal_choice > 7:
                     print("❌Invalid choice!")
                     continue
-
 
                 if cal_choice == 1:
                     print("-" * 30)
@@ -705,23 +702,17 @@ def main():
                             print("-" * 30)
                         else:
                             print(result)
-                    except ValueError as e:
+                    except ValueError:
                         print("Error! Year must be a number.")
 
-
-
-
-                    
-                    
-
-
-                    
-
+                elif cal_choice == 3:
+                    year = input("Enter year (e.g. 1655, 2016): ")
+                    success, result = calendar_utils.show_custom_year(year)
+                    print("-" * 80)
+                    print(result)
+                    print("-" * 80)
+                        
 
 
 if __name__ == "__main__":
     main()
-
-
-
-
