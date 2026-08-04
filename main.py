@@ -665,18 +665,18 @@ def main():
                 print("5. Days in a Month")
                 print("6. Find Weekday")
                 print("7. Check Weekend")
-                print("8. Back")
+                print("8. Date Difference")
+                print("9. Back")
                 print("=" * 30)
 
                 #! -------- CHOICE HANDLING AT TOP --------
                 try:
-                    cal_choice = int(input("Enter choice (1-8) : "))
+                    cal_choice = int(input("Enter choice (1-9) : "))
                 except ValueError as e:
                     print("❌ Invalid choice input!")
                     continue
 
-                
-                if cal_choice == 8:
+                if cal_choice == 9:
                     print("-" * 26)
                     print("Thank you for using!")
                     print("Goodbye👋")
@@ -684,7 +684,7 @@ def main():
                     break
 
                 #! Choice validation
-                if cal_choice < 1 and cal_choice > 7:
+                if cal_choice < 1 and cal_choice > 9:
                     print("❌Invalid choice!")
                     continue
 
@@ -702,9 +702,6 @@ def main():
                     print("-" * 30)
                     print(result)
                     print("-" * 30)
-                    
-                    
-                        
 
                 #! 3. Show whole year calendar
                 elif cal_choice == 3:
@@ -722,7 +719,6 @@ def main():
                     print(result)
                     print("-" * 30)
 
-
                 #! 5. Day in a month
                 elif cal_choice == 5:
                     year =  (input("Enter year (e.g. 1655, 2016): "))
@@ -731,7 +727,6 @@ def main():
                     print("-" * 30)
                     print(result)
                     print("-" * 30)
-
 
                 #! 6. Find day of a given date
                 elif cal_choice == 6:
@@ -743,7 +738,6 @@ def main():
                     print(result)
                     print("-" * 30)
 
-
                 #! 7. Check weekday
                 elif cal_choice == 7:
                     year =  input("Enter year (e.g. 1655, 2016): ")
@@ -753,15 +747,15 @@ def main():
                     print("-" * 30)
                     print(result)
                     print("-" * 30)
-                
 
-                    
-
-                    
-                    
-
-                
-                        
+                #! 8. Find difference between two dates
+                elif cal_choice == 8:
+                    date1 = input("Enter date in DD-MM-YYYY format : ")
+                    date2 = input("Enter date in DD-MM-YYYY format : ")
+                    success, result = calendar_utils.date_difference(date1, date2)
+                    print("-" * 30)
+                    print(result)
+                    print("-" * 30)
 
 
 if __name__ == "__main__":

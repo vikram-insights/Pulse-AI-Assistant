@@ -176,6 +176,24 @@ def validate_date(year, month, day):
         return False, "Invalid date!"
 
 
+#! 6. VALIDATE DATE STRING
+def validate_date_string(date):
+    # 1. Validate empty string
+    date = date.strip()
+    if not date.strip():
+        return False, "❌ Error ! Date is missing"
+
+    # 2. Validating date object
+    try:
+        actual_date = datetime.strptime(date, "%d-%m-%Y").date()
+        return True, actual_date
+    except ValueError:
+        return False, "❌ Invalid Date or Format! Please use DD-MM-YYYY."
+
+
+
+
+
 # ? ----------------------------- CALENDAR FEATURES -------------------------------
 
 
@@ -282,7 +300,6 @@ def show_weekday(year, month, day):
     day_name = calendar.day_name[weekday_code]
     month_name = calendar.month_name[actual_date.month]
     return True, f"The day for {actual_date.day} {month_name} {actual_date.year} is {day_name}."
-    
 
 
 #! 7. CHECK WEEKEND
@@ -300,3 +317,18 @@ def check_weekend(year, month, day):
     else:
         return True, f"{actual_date.day} {month_name} {actual_date.year} falls on a weekday."
 
+
+#! 8. FIND DIFFERENCE BETWEEN TWO DATES
+def date_difference(date1, date2):
+    # 1. Validate date
+    success1, date_1 = validate_date_string(date1)
+    if not success1:
+        return False, date_1
+
+    success2, date_2 = validate_date_string(date2)
+    if not success2:
+        return False, date_2
+
+    diff = date_2 - date_1
+    days = abs(diff.days)
+    return True, f"Difference between {date_1.strftime('%d %B %Y')} and {date_2.strftime('%d %B %Y')} is {days} days."
