@@ -1,16 +1,10 @@
 import calendar
 from datetime import datetime
 
-#! 1. SHOW CURRENT MONTH FUNCTION
-def current_month():
-    current_date = datetime.now()
-    month = current_date.month
-    year = current_date.year
-    month_view = calendar.month(year, month)
-    return month_view
+# ? ----------------------------- HELPER FUNCTIONS -------------------------------
 
 
-#! 2. VALIDATING YEAR
+#! 1. VALIDATING YEAR
 def validate_year(year):
     """
     Validates and parses a year input.
@@ -42,7 +36,7 @@ def validate_year(year):
             return False, "Year must be a number!"
 
 
-#! 3. VALIDATING MONTH
+#! 2. VALIDATING MONTH
 def validate_month(month):
     # Validate month
     if isinstance(month, str):
@@ -84,9 +78,40 @@ def validate_month(month):
     return True, month_num
 
 
+#! 3. VALIDATE DAY
+def validate_day(day):
+    """
+    Validates and parses a day input.
+    Returns (True, Day) if valid, otherwise (False, error message).
+    """
+
+    # 1. Remove extra spaces
+    cleaned_day = day.strip()
+
+    # 2. Check empty strings
+    if not cleaned_day:
+        return False, "Day cannot be empty!"
+
+    # 3. Checks float value
+    elif "." in cleaned_day:
+        return False, "Day cannot be a float value! "
+
+    else:
+        try:
+            # 4. Convert string into integer
+            final_day = int(cleaned_day)
+            # 5. Validate day is a positive number
+            if final_day < 1:
+                return False, "Day must be a positive number!"
+            else:
+                # 6. Return day on success
+                return True, final_day
+        except ValueError:
+            return False, "Day must be a number!"
+
+
 #! 4. EMPTY STRING INPUT VALIDATION
 def check_empty_string(**kwargs):
-
     """Validates that required string inputs are not empty."""
 
     # 1. Check empty inputs
@@ -117,15 +142,59 @@ def check_empty_string(**kwargs):
         return False, f"{main_part} and {last_item} are missing!"
 
 
-#! 5. SHOW CUSTOM NONTH FUNCTION
+#! 5. VALIDATE DATE
+def validate_date(year, month, day):
+    """
+    Validates a complete date.
+    Returns (True, datetime) if valid, otherwise (False, error message).
+    """
+    # 1. Validate empty strings
+    input_success, input_result = check_empty_string(year=year, month=month, day=day)
+
+    if not input_success:
+        return False, input_result
+
+    # 2. Validate year
+    year_success, year_result = validate_year(year)
+    if not year_success:
+        return False, year_result
+
+    # 3. Validate month
+    month_success, month_result = validate_month(month)
+    if not month_success:
+        return False, month_result
+
+    # 4. Validate day
+    day_success, day_result = validate_day(day)
+    if not day_success:
+        return False, day_result
+
+    try:
+        actual_date = datetime(year_result, month_result, day_result)
+        return True, actual_date
+    except ValueError:
+        return False, "Invalid date!"
+
+
+# ? ----------------------------- CALENDAR FEATURES -------------------------------
+
+
+#! 1. SHOW CURRENT MONTH FUNCTION
+def current_month():
+    current_date = datetime.now()
+    month = current_date.month
+    year = current_date.year
+    month_view = calendar.month(year, month)
+    return month_view
+
+
+#! 2. SHOW CUSTOM NONTH FUNCTION
 def show_custom_month(year, month):
 
     # 1. Check empty inputs
     input_success, input_result = check_empty_string(year=year, month=month)
     if not input_success:
         return False, input_result
-    
-    
 
     # 2. Validate year
     year_success, year_result = validate_year(year)
@@ -142,14 +211,13 @@ def show_custom_month(year, month):
     return True, result
 
 
-#! 6. SHOW CUSTOME CALENDAR YEAR FUNCTION
+#! 3. SHOW CUSTOME CALENDAR YEAR FUNCTION
 def show_custom_year(year):
 
     # 1. Validate empty strings
     year_success, year_result = check_empty_string(year=year)
     if not year_success:
         return False, year_result
-    
 
     # 2. Validate Year
     year_success, year_result = validate_year(year)
@@ -161,13 +229,12 @@ def show_custom_year(year):
     return True, result
 
 
-#! 7. CHECK LEAP YEAR FUNCTION
+#! 4. CHECK LEAP YEAR FUNCTION
 def check_leap_year(year):
     # 1. Validate empty strings
     year_success, year_result = check_empty_string(year=year)
     if not year_success:
         return False, year_result
-
 
     # 2. Validate year
     year_success, year_result = validate_year(year)
@@ -181,14 +248,13 @@ def check_leap_year(year):
         return False, f"{year_result}  is not leap year."
 
 
-#! 8. DAYS IN A MONTH
+#! 5. DAYS IN A MONTH
 def days_in_month(year, month):
     # 1. Validate empty strings
     input_success, input_result = check_empty_string(year=year, month=month)
     if not input_success:
         return False, input_result
 
-
     # 2. Validate year
     year_success, year_result = validate_year(year)
     if not year_success:
@@ -197,54 +263,20 @@ def days_in_month(year, month):
     # 3. Validate month
     month_success, month_result = validate_month(month)
     if not month_success:
-        return False, month_result 
+        return False, month_result
 
     # 4. Generate calendar
     result = calendar.monthrange(year_result, month_result)
-    return True, f"{calendar.month_name[month_result]} {year_result} has {result[1]} days." 
+    return (
+        True,
+        f"{calendar.month_name[month_result]} {year_result} has {result[1]} days.",
+    )
 
 
-
-#! 9. VALIDATE DAY HELPER FUNCTION
-def validate_day(day):
-    """
-        Validates and parses a day input.
-        Returns (True, Day) if valid, otherwise (False, error message).
-    """
-    
-    # 1. Remove extra spaces
-    cleaned_day = day.strip()
-    
-    # 2. Check empty strings
-    if not cleaned_day:
-        return False, "Day cannot be empty!"
-    
-    # 3. Checks float value
-    elif "." in cleaned_day:
-        return False, "Day cannot be a float value! "
-    
-    else:
-        try:
-            # 4. Convert string into integer
-            final_day = int(cleaned_day)
-                # 5. Validate day is a positive number
-            if final_day < 1:
-                return False, "Day must be a positive number!"
-            else:
-                # 6. Return day on success
-                return True, final_day
-        except ValueError:
-            return False, "Day must be a number!"
-
-
-
-        
-#! 10. SHOW DAY OF A GIVEN DATE
+#! 6. SHOW DAY OF A GIVEN DATE
 def show_weekday(year, month, day):
     # 1. Validate empty strings
-    input_success, input_result = check_empty_string(
-        year=year, month=month, day=day
-    )
+    input_success, input_result = check_empty_string(year=year, month=month, day=day)
 
     if not input_success:
         return False, input_result
@@ -253,11 +285,11 @@ def show_weekday(year, month, day):
     year_success, year_result = validate_year(year)
     if not year_success:
         return False, year_result
-    
+
     # 3. Validate month
     month_success, month_result = validate_month(month)
     if not month_success:
-        return False, month_result 
+        return False, month_result
 
     # 4. Validate day
     day_success, day_result = validate_day(day)
@@ -266,45 +298,43 @@ def show_weekday(year, month, day):
 
     try:
         actual_date = datetime(year_result, month_result, day_result)
-        weekday_code  = actual_date.weekday()
+        weekday_code = actual_date.weekday()
         day_name = calendar.day_name[weekday_code]
         month_name = calendar.month_name[month_result]
-        return True, f"The day for {day_result} {month_name} {year_result} is {day_name}."
+        return (
+            True,
+            f"The day for {day_result} {month_name} {year_result} is {day_name}.",
+        )
     except ValueError:
         return False, "Invalid date!"
 
 
-
-#! 10. CHECK WEEKEND
+#! 7. CHECK WEEKEND
 def check_weekend(year, month, day):
-# 1. Validate empty strings
-    input_success, input_result = check_empty_string(
-        year=year, month=month, day=day
-    )
-    
+    # 1. Validate empty strings
+    input_success, input_result = check_empty_string(year=year, month=month, day=day)
+
     if not input_success:
         return False, input_result
-    
+
     # 2. Validate year
     year_success, year_result = validate_year(year)
     if not year_success:
         return False, year_result
-        
+
     # 3. Validate month
     month_success, month_result = validate_month(month)
     if not month_success:
-        return False, month_result 
-    
+        return False, month_result
+
     # 4. Validate day
     day_success, day_result = validate_day(day)
     if not day_success:
         return False, day_result
 
-
-
     try:
         actual_date = datetime(year_result, month_result, day_result)
-        weekday_code  = actual_date.weekday()
+        weekday_code = actual_date.weekday()
         month_name = calendar.month_name[month_result]
         if weekday_code in (5, 6):
             return True, f"{day_result} {month_name} {year_result} falls on weekend."
@@ -312,13 +342,3 @@ def check_weekend(year, month, day):
             return True, f"{day_result} {month_name} {year_result} falls on weekday."
     except ValueError:
         return False, "Invalid date!"
-    
-    
-
-
-
-    
-    
-
-
-
