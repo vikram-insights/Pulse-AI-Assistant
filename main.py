@@ -664,18 +664,19 @@ def main():
                 print("4. Check Leap Year")
                 print("5. Days in a Month")
                 print("6. Find Weekday")
-                print("7. Back")
+                print("7. Check Weekend")
+                print("8. Back")
                 print("=" * 30)
 
                 #! -------- CHOICE HANDLING AT TOP --------
                 try:
-                    cal_choice = int(input("Enter choice (1-7) : "))
+                    cal_choice = int(input("Enter choice (1-8) : "))
                 except ValueError as e:
                     print("❌ Invalid choice input!")
                     continue
 
                 
-                if cal_choice == 7:
+                if cal_choice == 8:
                     print("-" * 26)
                     print("Thank you for using!")
                     print("Goodbye👋")
@@ -741,6 +742,19 @@ def main():
                     print("-" * 30)
                     print(result)
                     print("-" * 30)
+
+
+                #! 7. Check weekday
+                elif cal_choice == 7:
+                    year =  input("Enter year (e.g. 1655, 2016): ")
+                    month = input("Enter month name or number : ")
+                    day = input("Enter day : ")
+                    success, result = calendar_utils.check_weekend(year, month, day)
+                    print("-" * 30)
+                    print(result)
+                    print("-" * 30)
+                
+
                     
 
                     
