@@ -267,78 +267,36 @@ def days_in_month(year, month):
 
     # 4. Generate calendar
     result = calendar.monthrange(year_result, month_result)
-    return (
-        True,
-        f"{calendar.month_name[month_result]} {year_result} has {result[1]} days.",
-    )
+    return True, f"{calendar.month_name[month_result]} {year_result} has {result[1]} days."
 
 
 #! 6. SHOW DAY OF A GIVEN DATE
 def show_weekday(year, month, day):
-    # 1. Validate empty strings
-    input_success, input_result = check_empty_string(year=year, month=month, day=day)
+    # 1. Validate date
+    success, actual_date = validate_date(year, month, day)
+    if not success:
+        return False, actual_date
 
-    if not input_success:
-        return False, input_result
-
-    # 2. Validate year
-    year_success, year_result = validate_year(year)
-    if not year_success:
-        return False, year_result
-
-    # 3. Validate month
-    month_success, month_result = validate_month(month)
-    if not month_success:
-        return False, month_result
-
-    # 4. Validate day
-    day_success, day_result = validate_day(day)
-    if not day_success:
-        return False, day_result
-
-    try:
-        actual_date = datetime(year_result, month_result, day_result)
-        weekday_code = actual_date.weekday()
-        day_name = calendar.day_name[weekday_code]
-        month_name = calendar.month_name[month_result]
-        return (
-            True,
-            f"The day for {day_result} {month_name} {year_result} is {day_name}.",
-        )
-    except ValueError:
-        return False, "Invalid date!"
+    # 2. Generate result
+    weekday_code = actual_date.weekday()
+    day_name = calendar.day_name[weekday_code]
+    month_name = calendar.month_name[actual_date.month]
+    return True, f"The day for {actual_date.day} {month_name} {actual_date.year} is {day_name}."
+    
 
 
 #! 7. CHECK WEEKEND
 def check_weekend(year, month, day):
-    # 1. Validate empty strings
-    input_success, input_result = check_empty_string(year=year, month=month, day=day)
+    # 1. Validate date
+    success, actual_date = validate_date(year, month, day)
+    if not success:
+        return False, actual_date
 
-    if not input_success:
-        return False, input_result
+    # 2. Generate result
+    weekday_code = actual_date.weekday()
+    month_name = calendar.month_name[actual_date.month]
+    if weekday_code in (5, 6):
+        return True, f"{actual_date.day} {month_name} {actual_date.year} falls on a weekend."
+    else:
+        return True, f"{actual_date.day} {month_name} {actual_date.year} falls on a weekday."
 
-    # 2. Validate year
-    year_success, year_result = validate_year(year)
-    if not year_success:
-        return False, year_result
-
-    # 3. Validate month
-    month_success, month_result = validate_month(month)
-    if not month_success:
-        return False, month_result
-
-    # 4. Validate day
-    day_success, day_result = validate_day(day)
-    if not day_success:
-        return False, day_result
-
-    try:
-        actual_date = datetime(year_result, month_result, day_result)
-        weekday_code = actual_date.weekday()
-        month_name = calendar.month_name[month_result]
-        if weekday_code in (5, 6):
-            return True, f"{day_result} {month_name} {year_result} falls on weekend."
-        else:
-            return True, f"{day_result} {month_name} {year_result} falls on weekday."
-    except ValueError:
-        return False, "Invalid date!"
