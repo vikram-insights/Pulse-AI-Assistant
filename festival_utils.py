@@ -1,9 +1,11 @@
 import requests
+import os
+from dotenv import load_dotenv
 from validation import validate_year
 
 
-
-api_key = "dYjYDbsHdEYnaPfFtzd955l5NesyI0gb"
+load_dotenv()
+api_key = os.getenv("CALENDARIFIC_API_KEY")
 url = "https://calendarific.com/api/v2/holidays"
 
 
