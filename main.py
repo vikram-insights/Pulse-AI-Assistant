@@ -8,13 +8,14 @@ import notes_utils
 import todo_utils
 import pomodoro
 import calendar_utils
+import festival_utils
 
 def main():
 
     while True:
-        print("=" * 25)
+        print("=" * 30)
         print("PULSE AI ASSISTANT")
-        print("=" * 25)
+        print("=" * 30)
 
         print("1. Current Date & Time")
         print("2. Weather")
@@ -27,27 +28,28 @@ def main():
         print("9. TODO List")
         print("10. Pomodoro")
         print("11. Calendar")
-        print("12. Exit")
-        print("=" * 25)
+        print("12. Holidays & Festivals")
+        print("13. Exit")
+        print("=" * 30)
 
         try:
             choice = int(input("Enter your choice :  "))
 
         except ValueError:
-            print("Error! Please enter valid input.")
+            print("❌ Error! Please enter valid input.")
             continue
 
-        if choice == 12:
+        if choice == 13:
             print("-" * 30)
             print("Thank you for using Pulse.")
             print("Goodbye👋")
             print("-" * 30)
             break
 
-        if choice < 1 or choice > 12:
+        if choice < 1 or choice > 13:
             print("-" * 40)
             print("Invalid Input!")
-            print("Please select choice between 1-12.")
+            print("Please select choice between 1-13.")
             print("-" * 40)
             continue
 
@@ -756,6 +758,55 @@ def main():
                     print("-" * 30)
                     print(result)
                     print("-" * 30)
+
+
+        elif choice == 12:
+            while True:
+                print("=" * 30)
+                print("FESTIVALS AND HOLIDAYS")
+                print("=" * 30)
+                print("1. List All Holidays")
+                print("2. Find Festival Date")
+                print("3. List Holidays by Month")
+                print("4. Holiday Details")
+                print("5. Search by Holiday Type")
+                print("6. Back")
+
+
+                #? ------------ CHOICE HANDLING AT THE TOP ------------
+                try:
+                    fest_choice = int(input("Enter choice (1-6) : "))
+                except ValueError:
+                    print("❌ Invalid choice!")
+                    continue
+
+                if fest_choice == 6:
+                    print("-" * 26)
+                    print("Thank you for using!")
+                    print("Goodbye👋")
+                    print("-" * 26)
+                    break
+
+                if fest_choice < 1 or fest_choice > 6:
+                    print("❌ Invalid choice selection! Please select between (1-6).")
+                    continue
+
+
+                if fest_choice == 1:
+                    year = input("Enter year : ")
+                    success, holidays = festival_utils.get_indian_holidays(year)
+                    if success:
+                        print("-" * 30)
+                        for index, holiday in enumerate(holidays, start=1):
+                            print(f"{index}. {holiday['name']}")
+                        print("-" * 30)
+                    else:
+                        print("-" * 30)
+                        print(holidays)
+                        print("-" * 30)
+                    
+
+
 
 
 if __name__ == "__main__":
