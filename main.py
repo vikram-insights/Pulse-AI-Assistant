@@ -807,7 +807,7 @@ def main():
                         print("-" * 30)
 
 
-                if fest_choice == 2:
+                elif fest_choice == 2:
                     year = input("Enter year : ")
                     name = input("Enter name of the festival : ")
                     success, result = festival_utils.find_festival(year, name)
@@ -822,6 +822,24 @@ def main():
                         print("-" * 50)
                         print(result)
                         print("-" * 50)
+
+
+                elif fest_choice == 3:
+                    year = input("Enter year : ")
+                    month = input("Enter month name or number : ")
+                    success, holidays = festival_utils.festivals_by_month(year, month)
+                    
+                    if success:
+                        print("-" * 50)
+                        for index, holiday in enumerate(holidays, start=1):
+                            formatted_date = datetime.strptime(holiday["date"], "%Y-%m-%d").strftime("%d %B %Y")
+                            print(f"{index}. {holiday['name']} - {formatted_date}")
+                        print("-" * 50)
+                    else:
+                        print("-" * 58)
+                        print(holidays)
+                        print("-" * 58)
+                    
 
 
                     

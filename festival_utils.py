@@ -1,7 +1,7 @@
 import requests
 import os
 from dotenv import load_dotenv
-from validation import validate_year, check_empty_string
+from validation import validate_year, check_empty_string, validate_month
 
 
 load_dotenv()
@@ -43,7 +43,7 @@ def find_festival(year,name):
     if not input_success:
         return False, input_result
 
-    
+    # 2. Validate year and get the result from api
     year_success, holidays = get_indian_holidays(year)
     if not year_success:
         return False, holidays
@@ -59,4 +59,42 @@ def find_festival(year,name):
         return False, "❌ No holidays found with this name"
 
 
- 
+#? 3. LIST OF HOLIDAYS BY MONTH
+def festivals_by_month(year, month):
+    # 1. Validate month
+    month_success, month_result = validate_month(month)
+    if not month_success:
+        return False, month_result
+
+    # 2. Validate the year and get the result from the api
+    year_success, holidays = get_indian_holidays(year)
+    if not year_success:
+        return False, holidays
+
+    month_holidays = []
+
+    for holiday in holidays:
+        if holiday["date"]["datetime"]["month"] == month_result:
+            holiday_name = holiday["name"]
+            date = holiday["date"]["iso"]
+            month_holidays.append({
+                "name" : holiday_name,
+                "date" : date
+            })
+        
+
+    if month_holidays:
+        return True, month_holidays
+    return False, "❌ No holidays founda for this month"
+        
+    
+
+
+
+
+    
+
+    
+
+
+    
