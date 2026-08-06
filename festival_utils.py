@@ -1,7 +1,7 @@
 import requests
 import os
 from dotenv import load_dotenv
-from validation import validate_year
+from validation import validate_year, check_empty_string
 
 
 load_dotenv()
@@ -33,3 +33,30 @@ def get_indian_holidays(year):
         return True, holidays
     except requests.RequestException:
         return False, "❌ Failed to fetch holiday data."
+
+
+
+#? 2. FIND THE FESTIVAL BY NAME
+def find_festival(year,name):
+    # 1. Validate empty strings
+    input_success, input_result = check_empty_string(year=year,name=name)
+    if not input_success:
+        return False, input_result
+
+    
+    year_success, holidays = get_indian_holidays(year)
+    if not year_success:
+        return False, holidays
+
+    # 3. Get the list of the Indian festivals
+
+    for holiday in holidays:
+        if name.strip().lower() in holiday["name"].strip().lower():
+            holiday_name = holiday["name"]
+            date = holiday["date"]["iso"]
+            return True, (holiday_name, date)
+    else:
+        return False, "❌ No holidays found with this name"
+
+
+ 

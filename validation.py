@@ -128,17 +128,17 @@ def check_empty_string(**kwargs):
         return True, None
 
     if total_missing == 1:
-        return False, f"{missing_fields[0]} is missing!"
+        return False, f"❌ {missing_fields[0]} is missing!"
 
     elif total_missing == 2:
-        return False, f"{missing_fields[0]} and {missing_fields[1]} are missing!"
+        return False, f"❌ {missing_fields[0]} and {missing_fields[1]} are missing!"
 
     else:
         # Separate all the items except the last one with commas
         main_part = ", ".join(missing_fields[:-1])
         # Get the very last item
         last_item = missing_fields[-1]
-        return False, f"{main_part} and {last_item} are missing!"
+        return False, f"❌ {main_part} and {last_item} are missing!"
 
 
 #! 5. VALIDATE DATE

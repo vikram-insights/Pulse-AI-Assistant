@@ -771,6 +771,7 @@ def main():
                 print("4. Holiday Details")
                 print("5. Search by Holiday Type")
                 print("6. Back")
+                print("=" * 30)
 
 
                 #? ------------ CHOICE HANDLING AT THE TOP ------------
@@ -804,6 +805,25 @@ def main():
                         print("-" * 30)
                         print(holidays)
                         print("-" * 30)
+
+
+                if fest_choice == 2:
+                    year = input("Enter year : ")
+                    name = input("Enter name of the festival : ")
+                    success, result = festival_utils.find_festival(year, name)
+                    if success:
+                        holiday_name, date = result
+
+                        formatted_date = datetime.strptime(date, "%Y-%m-%d").strftime("%d %B %Y")
+                        print("-" * 50)
+                        print(f"🎉 {holiday_name} falls on {formatted_date}.")
+                        print("-" * 50)
+                    else:
+                        print("-" * 50)
+                        print(result)
+                        print("-" * 50)
+
+
                     
 
 
