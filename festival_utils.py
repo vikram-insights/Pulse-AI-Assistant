@@ -86,6 +86,32 @@ def festivals_by_month(year, month):
     if month_holidays:
         return True, month_holidays
     return False, "❌ No holidays founda for this month"
+
+
+
+#? 4. GET HOLIDAY DETAILS
+
+def holiday_details(year,name):
+    # 1. Validate empty strings
+    input_success, input_result = check_empty_string(year=year,name=name)
+    if not input_success:
+        return False, input_result
+
+    # 2. Validate year and get the result from api
+    year_success, holidays = get_indian_holidays(year)
+    if not year_success:
+        return False, holidays
+
+    # 3. Get the list of the Indian festivals
+
+    for holiday in holidays:
+        if name.strip().lower() in holiday["name"].strip().lower():
+            return True, holiday
+    else:
+        return False, "❌ No holidays found !"
+
+
+
         
     
 

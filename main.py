@@ -792,7 +792,7 @@ def main():
                     print("❌ Invalid choice selection! Please select between (1-6).")
                     continue
 
-
+                #! 1. LIST ALL FESTIVALS AND HOLIDAYS
                 if fest_choice == 1:
                     year = input("Enter year : ")
                     success, holidays = festival_utils.get_indian_holidays(year)
@@ -807,6 +807,7 @@ def main():
                         print("-" * 30)
 
 
+                #! 2. FIND DATE OF ANY FESTIVAL OR FESTIVAL
                 elif fest_choice == 2:
                     year = input("Enter year : ")
                     name = input("Enter name of the festival : ")
@@ -823,7 +824,7 @@ def main():
                         print(result)
                         print("-" * 50)
 
-
+                #! 3. LIST HOLIDAYS OR FESTIVALS BY MONTH
                 elif fest_choice == 3:
                     year = input("Enter year : ")
                     month = input("Enter month name or number : ")
@@ -839,6 +840,36 @@ def main():
                         print("-" * 58)
                         print(holidays)
                         print("-" * 58)
+
+                #! 4.   GET HOLIDAY OR FESTIVAL DETAILS
+                elif fest_choice == 4:
+                    year = input("Enter year : ")
+                    name = input("Enter holiday name : ")
+
+                    success, holiday = festival_utils.holiday_details(year, name)
+
+                    if success:
+                        formatted_date = datetime.strptime(
+                            holiday["date"]["iso"],
+                            "%Y-%m-%d"
+                        ).strftime("%d %B %Y")
+
+                        print("-" * 50)
+                        print(f"🎉 {holiday['name']}")
+                        print("-" * 50)
+                        print(f"Date         : {formatted_date}")
+                        print(f"Description  : {holiday['description']}")
+                        print(f"Type         : {', '.join(holiday['type'])}")
+                        print(f"Primary Type : {holiday['primary_type']}")
+                        print(f"Locations    : {holiday['locations']}")
+                        print(f"States       : {holiday['states']}")
+                        print("-" * 50)
+
+                    else:
+                        print("-" * 50)
+                        print(holiday)
+                        print("-" * 50)
+
                     
 
 
