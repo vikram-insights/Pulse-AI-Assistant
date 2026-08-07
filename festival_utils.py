@@ -9,7 +9,7 @@ api_key = os.getenv("CALENDARIFIC_API_KEY")
 url = "https://calendarific.com/api/v2/holidays"
 
 
-#? 1. GET LIST OF INDIAN FESTIVALS BY YEAR
+# ? 1. GET LIST OF INDIAN FESTIVALS BY YEAR
 def get_indian_holidays(year):
     # 1. Validate year
     year_success, year_result = validate_year(year)
@@ -35,8 +35,7 @@ def get_indian_holidays(year):
         return False, "❌ Failed to fetch holiday data."
 
 
-
-#? 2. FIND THE FESTIVAL BY NAME
+# ? 2. FIND THE FESTIVAL BY NAME
 def find_festival(year,name):
     # 1. Validate empty strings
     input_success, input_result = check_empty_string(year=year,name=name)
@@ -59,7 +58,7 @@ def find_festival(year,name):
         return False, "❌ No holidays found with this name"
 
 
-#? 3. LIST OF HOLIDAYS BY MONTH
+# ? 3. LIST OF HOLIDAYS BY MONTH
 def festivals_by_month(year, month):
     # 1. Validate month
     month_success, month_result = validate_month(month)
@@ -88,8 +87,7 @@ def festivals_by_month(year, month):
     return False, "❌ No holidays founda for this month"
 
 
-
-#? 4. GET HOLIDAY DETAILS
+# ? 4. GET HOLIDAY DETAILS
 
 def holiday_details(year,name):
     # 1. Validate empty strings
@@ -111,16 +109,31 @@ def holiday_details(year,name):
         return False, "❌ No holidays found !"
 
 
+# ? 5. FIND HOLIDAYS BY TYPE
+def holidays_by_type(year, holiday_type_input):
+    # 1. Validate empty strings
+    input_success, input_result = check_empty_string(
+        year=year, holiday_type=holiday_type_input
+    )
+    if not input_success:
+        return False, input_result
 
-        
-    
+    # 2. Validate year and get the result from API
+    year_success, holidays = get_indian_holidays(year)
+    if not year_success:
+        return False, holidays
 
+    type_holidays = []
 
+    for holiday in holidays:
+        for holiday_type in holiday["type"]:
+            if holiday_type.strip().lower() == holiday_type_input.strip().lower():
+                type_holidays.append(
+                    {"name": holiday["name"], "date": holiday["date"]["iso"]}
+                )
+                break
 
+    if type_holidays:
+        return True, type_holidays
 
-    
-
-    
-
-
-    
+    return False, "❌ No holidays found with this type."

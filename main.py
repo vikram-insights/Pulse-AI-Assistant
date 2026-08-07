@@ -17,15 +17,15 @@ def main():
         print("PULSE AI ASSISTANT")
         print("=" * 30)
 
-        print("1. Current Date & Time")
-        print("2. Weather")
-        print("3. Bitcoin Price")
-        print("4. Calculator")
-        print("5. Currency Converter")
-        print("6. Open Website")
-        print("7. Reminder")
-        print("8. Notes")
-        print("9. TODO List")
+        print("1.  Current Date & Time")
+        print("2.  Weather")
+        print("3.  Bitcoin Price")
+        print("4.  Calculator")
+        print("5.  Currency Converter")
+        print("6.  Open Website")
+        print("7.  Reminder")
+        print("8.  Notes")
+        print("9.  TODO List")
         print("10. Pomodoro")
         print("11. Calendar")
         print("12. Holidays & Festivals")
@@ -868,6 +868,36 @@ def main():
                     else:
                         print("-" * 50)
                         print(holiday)
+                        print("-" * 50)
+
+
+
+
+                elif fest_choice == 5:
+                    year = input("Enter year : ")
+                    holiday_type = input("Enter holiday type : ")
+
+                    success, holidays = festival_utils.holidays_by_type(
+                        year,
+                        holiday_type
+                    )
+
+                    if success:
+                        print("-" * 50)
+
+                        for index, holiday in enumerate(holidays, start=1):
+                            formatted_date = datetime.strptime(
+                                holiday["date"],
+                                "%Y-%m-%d"
+                            ).strftime("%d %B %Y")
+
+                            print(f"{index}. {holiday['name']} - {formatted_date}")
+
+                        print("-" * 50)
+
+                    else:
+                        print("-" * 50)
+                        print(holidays)
                         print("-" * 50)
 
                     
