@@ -124,7 +124,7 @@ Pulse AI Assistant is an actively growing project.
 
 ---
 
-🔥 Version 1.1
+✅ Version 1.1 (Completed)
 
 Focus: Productivity
 
@@ -138,7 +138,7 @@ Planned Features:
 
 ---
 
-🤖 Version 1.2
+🤖 Version 1.2 (Ongoing)
 
 Focus: AI
 
