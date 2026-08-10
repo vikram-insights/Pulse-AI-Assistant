@@ -9,6 +9,7 @@ import todo_utils
 import pomodoro
 import calendar_utils
 import festival_utils
+import pulse
 
 def main():
 
@@ -29,7 +30,8 @@ def main():
         print("10. Pomodoro")
         print("11. Calendar")
         print("12. Holidays & Festivals")
-        print("13. Exit")
+        print("13. AI Assistant")
+        print("14. Exit")
         print("=" * 30)
 
         try:
@@ -39,14 +41,14 @@ def main():
             print("❌ Error! Please enter valid input.")
             continue
 
-        if choice == 13:
+        if choice == 14:
             print("-" * 30)
             print("Thank you for using Pulse.")
             print("Goodbye👋")
             print("-" * 30)
             break
 
-        if choice < 1 or choice > 13:
+        if choice < 1 or choice > 14:
             print("-" * 40)
             print("Invalid Input!")
             print("Please select choice between 1-13.")
@@ -899,6 +901,15 @@ def main():
                         print("-" * 50)
                         print(holidays)
                         print("-" * 50)
+
+
+        if choice == 13:
+            message = input("Enter your message : ")
+            success, result = pulse.ask_ai(message)
+            print("-" * 50)
+            print(result)
+            print("-" * 50)
+
 
                     
 
