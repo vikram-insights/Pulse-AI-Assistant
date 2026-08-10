@@ -904,11 +904,9 @@ def main():
 
 
         if choice == 13:
-            message = input("Enter your message : ")
-            success, result = pulse.ask_ai(message)
-            print("-" * 50)
-            print(result)
-            print("-" * 50)
+            pulse.start_ai_chat()
+            
+
 
 
                     
