@@ -1,8 +1,12 @@
 from google import genai
 from config import GEMINI_API_KEY
 from validation import check_empty_string
+from google.genai import types
+from prompts import PULSE_INSTRUCTIONS
 
 client = genai.Client(api_key=GEMINI_API_KEY)
+
+
 
 
 # ? BASIC AI CHAT
@@ -31,14 +35,15 @@ def chat_with_ai(message, history):
         })
             
         # 2. Semd the message to Gemini and Generate a response
-        response = client.models.generate_content(
-            model="gemini-3.6-flash", contents=conversation
-        )
+        response = client.models.generate_content (
+            model="gemini-3.6-flash",
+            contents=conversation,
+            config=types.GenerateContentConfig(
+    system_instruction=PULSE_INSTRUCTIONS))
+        
         # 3. Return the generated AI response
         return True, response.text
 
     except Exception as e:
         # 4. Handle any API or unexpected error
         return False, f"AI Error: {e}"
-
-

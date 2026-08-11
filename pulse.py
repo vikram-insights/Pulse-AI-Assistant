@@ -1,6 +1,7 @@
 import ai_utils
 
 
+
 def ask_ai(message, history):
     # 1. Send the user message to the AI utility
     success, result = ai_utils.chat_with_ai(message, history)
@@ -33,5 +34,3 @@ def start_ai_chat():
 
         # 4. Display the AI response
         print(f"Pulse 🤖 : {result}")
-
-
