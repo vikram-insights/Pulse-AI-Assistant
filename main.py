@@ -12,7 +12,6 @@ import festival_utils
 import pulse
 
 def main():
-
     while True:
         print("=" * 30)
         print("PULSE AI ASSISTANT")
