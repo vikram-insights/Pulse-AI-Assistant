@@ -1,4 +1,7 @@
 import ai_utils
+from colorama import Fore, Style, init
+
+init()
 
 
 
@@ -13,11 +16,12 @@ def ask_ai(message, history):
 def start_ai_chat():
     print("Type 'exit' anytime to end the conversation.")
     history = []
+
     while True:
         print("-" * 70)
-        print("-" * 20)
+        
         # 1. Get the message from the user
-        message = input("You 👤 : ") 
+        message = input(Fore.CYAN + "You 👤 : " + Style.RESET_ALL) 
 
         # 2. Exit the conversation if user types 'exit'
         if message.strip().lower() == "exit":
@@ -27,8 +31,11 @@ def start_ai_chat():
         # 3. Send the message to the AI
         success, result = ask_ai(message, history)
 
-        history.append({
-            "user" : message,
-            "assistant" : result
-        })
+        if success:
+            history.append({
+                "user" : message,
+                "assistant" : result
+            })
+        else:
+            print(Fore.RED + result + Style.RESET_ALL)
 

@@ -3,6 +3,9 @@ from config import GEMINI_API_KEY
 from validation import check_empty_string
 from google.genai import types
 from prompts import PULSE_INSTRUCTIONS
+from colorama import Fore, Style, init
+
+init()
 
 client = genai.Client(api_key=GEMINI_API_KEY)
 
@@ -33,7 +36,8 @@ def chat_with_ai(message, history):
         })
 
         # 2. Semd the message to Gemini and Generate a response
-        thinking = "Pulse 🤖 : Thinking..."
+        thinking_text = "Pulse 🤖 : Thinking..."
+        thinking = Fore.YELLOW + thinking_text + Style.RESET_ALL
         print(thinking, end="", flush=True)
         response = client.models.generate_content_stream (
             model="gemini-3.6-flash",
@@ -46,8 +50,8 @@ def chat_with_ai(message, history):
         for chunk in response:
             if first_chunk:
                 # Handles thinking....
-                print("\r" + " " * len(thinking) + "\r", end="")
-                print("Pulse 🤖 : ", end="", flush=True)
+                print("\r" + " " * len(thinking_text) + "\r", end="")
+                print(Fore.GREEN + "Pulse 🤖 : " + Style.RESET_ALL, end="", flush=True)
                 first_chunk = False
             print(chunk.text, end="")
             ai_response += chunk.text
