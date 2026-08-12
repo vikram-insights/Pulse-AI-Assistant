@@ -32,5 +32,3 @@ def start_ai_chat():
             "assistant" : result
         })
 
-        # 4. Display the AI response
-        print(f"Pulse 🤖 : {result}")
