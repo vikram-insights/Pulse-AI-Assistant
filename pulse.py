@@ -23,10 +23,43 @@ def start_ai_chat():
         # 1. Get the message from the user
         message = input(Fore.CYAN + "You 👤 : " + Style.RESET_ALL) 
 
-        # 2. Exit the conversation if user types 'exit'
-        if message.strip().lower() == "exit":
+        # 2. Pusle Commands 
+        command = message.strip().lower()
+        if command == "/clear":
+            history.clear()
+            print("🧹 Coversation history cleared.")
+
+
+        elif command == "exit":
             print("👋 Ending conversation...")
             break
+
+        elif command == "/help":
+            print("""
+        Available Commands:
+
+        /clear - Clear the conversation history
+        /help  - Show available commands
+        exit   - Exit conversation           
+        """)
+            continue
+
+        elif command == "/history":
+            print("\n📃 Conversation History")
+
+            if not history:
+                print("No conversation history yet")
+            else:
+                for index, convo in enumerate(history, start=1):
+                    user_message = convo["user"]
+                    assistant_response = convo["assistant"]
+                    preview = assistant_response[:80]
+                    print(f"\n{index}. You : {user_message}")
+                    print(f"  Pulse : {preview}...")
+            continue
+
+
+        
 
         # 3. Send the message to the AI
         success, result = ask_ai(message, history)
