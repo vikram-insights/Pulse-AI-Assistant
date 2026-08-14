@@ -1,5 +1,7 @@
 import ai_utils
 from colorama import Fore, Style, init
+import os
+from datetime import datetime
 
 init()
 
@@ -38,7 +40,9 @@ def start_ai_chat():
 
         /clear - Clear the conversation history
         /help  - Show available commands
-        exit   - Exit conversation           
+        exit   - Exit conversation
+        /save  - Save conversation
+                   
         """)
             continue
 
@@ -58,7 +62,7 @@ def start_ai_chat():
 
         elif command == "/save":
             success, result = save_conversation(history)
-            print(result)
+            print(f"Saved 💾 : {result}")
             continue
 
         # 3. Send the message to the AI
@@ -75,13 +79,18 @@ def start_ai_chat():
 
 def save_conversation(history):
     try:
-        with open("conversation.txt", "w", encoding="utf-8") as file:
+        today = datetime.now()
+        file_name = today.strftime("%d_%m_%Y_%H_%M_%S")
+        actual_filename = "conversation_" + file_name + ".txt"
+        os.makedirs("Conversation", exist_ok=True)
+        file_path = os.path.join("Conversation", actual_filename)
+        with open(file_path, "w", encoding="utf-8") as file:
             for convo in history:
                 file.write(f"You 👤 : {convo['user']}\n")
                 file.write(f"Pulse 🤖 : {convo['assistant']}\n")
                 file.write("-" * 50 + "\n")
 
-        return True, "💾 Conversation saved successfully."
+        return True, actual_filename
 
     except Exception as e:
         return False, f"Save Error: {e}"
