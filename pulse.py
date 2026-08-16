@@ -3,6 +3,7 @@ from colorama import Fore, Style, init
 import os
 from datetime import datetime
 import json
+from validation import check_empty_string
 
 init()
 
@@ -68,6 +69,15 @@ def start_ai_chat():
             print(f"Saved 💾 : {result}")
             continue
 
+        elif command == "/load":
+            success, result = load_conversation()
+            if success:
+                history = result
+                print(result)
+            else:
+                print(result)
+            continue
+
         # 3. Send the message to the AI
         success, result = ask_ai(message, history)
 
@@ -95,3 +105,45 @@ def save_conversation(history):
 
     except Exception as e:
         return False, f"Save Error: {e}"
+
+
+def load_conversation():
+    new_history = []
+    old_history = os.listdir("Conversation")
+    if old_history:
+        for history in old_history:
+            if history.endswith(".json"):
+                new_history.append(history)
+        
+    if new_history:
+        for index, history in enumerate(new_history, start=1):
+            print(f"{index}. {history}")
+
+        try:
+            number = int(input("Enter file number: "))
+        except ValueError:
+            return False, "Invalid input!"
+
+        if number < 1 or number > len(new_history):
+            return False, "Invalid selection!"
+
+        
+        index_number = number - 1
+        selected_file = new_history[index_number]
+
+        try:
+            file_path = os.path.join("Conversation", selected_file)
+            with open(file_path, "r", encoding="utf-8") as file:
+                loaded_history = json.load(file)
+                return True, loaded_history
+        except FileNotFoundError:
+            return False, "File not found with selected number"
+    else:
+        return False, "No saved conversation found."
+
+
+
+
+
+    
+        
