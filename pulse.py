@@ -2,6 +2,7 @@ import ai_utils
 from colorama import Fore, Style, init
 import os
 from datetime import datetime
+import json
 
 init()
 
@@ -28,7 +29,8 @@ def start_ai_chat():
         command = message.strip().lower()
         if command == "/clear":
             history.clear()
-            print("🧹 Coversation history cleared.")
+            print("🧹 Conversation history cleared.")
+            continue
 
         elif command == "exit":
             print("👋 Ending conversation...")
@@ -48,6 +50,7 @@ def start_ai_chat():
 
         elif command == "/history":
             print("\n📃 Conversation History")
+            
 
             if not history:
                 print("No conversation history yet")
@@ -81,14 +84,12 @@ def save_conversation(history):
     try:
         today = datetime.now()
         file_name = today.strftime("%d_%m_%Y_%H_%M_%S")
-        actual_filename = "conversation_" + file_name + ".txt"
+        actual_filename = "conversation_" + file_name + ".json"
         os.makedirs("Conversation", exist_ok=True)
         file_path = os.path.join("Conversation", actual_filename)
         with open(file_path, "w", encoding="utf-8") as file:
-            for convo in history:
-                file.write(f"You 👤 : {convo['user']}\n")
-                file.write(f"Pulse 🤖 : {convo['assistant']}\n")
-                file.write("-" * 50 + "\n")
+            json.dump(history, file, indent=4)
+
 
         return True, actual_filename
 
