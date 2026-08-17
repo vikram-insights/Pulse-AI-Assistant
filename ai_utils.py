@@ -12,7 +12,9 @@ client = genai.Client(api_key=GEMINI_API_KEY)
 
 # ? BASIC AI CHAT
 def chat_with_ai(message, history):
+
     conversation = []
+    
     # 1. Validate user message
     input_success, input_result = check_empty_string(message=message)
     if not input_success:
@@ -35,7 +37,7 @@ def chat_with_ai(message, history):
             "parts" : [{"text" : message}]
         })
 
-        # 2. Semd the message to Gemini and Generate a response
+        # 2. Send the message to Gemini and Generate a response
         thinking_text = "Pulse 🤖 : Thinking..."
         thinking = Fore.YELLOW + thinking_text + Style.RESET_ALL
         print(thinking, end="", flush=True)

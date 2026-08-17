@@ -20,13 +20,13 @@ def start_ai_chat():
     print("Type 'exit' anytime to end the conversation.")
     history = []
 
+    # 1. Handle Pulse commands
     while True:
         print("-" * 70)
 
-        # 1. Get the message from the user
+        # 2. Get the message from the user
         message = input(Fore.CYAN + "You 👤 : " + Style.RESET_ALL) 
 
-        # 2. Pusle Commands
         command = message.strip().lower()
         if command == "/clear":
             history.clear()
@@ -43,8 +43,10 @@ def start_ai_chat():
 
         /clear - Clear the conversation history
         /help  - Show available commands
+        /history - Show conversation history
         exit   - Exit conversation
         /save  - Save conversation
+        /load  - Load the selected conversation
                    
         """)
             continue
@@ -55,25 +57,28 @@ def start_ai_chat():
 
             if not history:
                 print("No conversation history yet")
-            else:
-                for index, convo in enumerate(history, start=1):
-                    user_message = convo["user"]
-                    assistant_response = convo["assistant"]
-                    preview = assistant_response[:80]
-                    print(f"\n{index}. You : {user_message}")
-                    print(f"  Pulse : {preview}...")
+                continue
+
+            for index, convo in enumerate(history, start=1):
+                preview = convo["assistant"][:80]
+                print(f"\n{index}. You : {convo['user']}")
+                print(f"  Pulse : {preview}...")
             continue
+
 
         elif command == "/save":
             success, result = save_conversation(history)
-            print(f"Saved 💾 : {result}")
+            if success:
+                print("Conversation saved successfully.")
+            else:
+                print(result)
             continue
 
         elif command == "/load":
             success, result = load_conversation()
             if success:
                 history = result
-                print(result)
+                print("Conversation loaded successfully.")
             else:
                 print(result)
             continue
@@ -92,14 +97,18 @@ def start_ai_chat():
 
 def save_conversation(history):
     try:
-        today = datetime.now()
-        file_name = today.strftime("%d_%m_%Y_%H_%M_%S")
-        actual_filename = "conversation_" + file_name + ".json"
+        # 1. Generate a unique filename using the current date and time
+        actual_filename = (
+            "conversation_" + datetime.now().strftime("%d_%m_%Y_%H_%M_%S") + ".json"
+        )
+
+        # 2. Create the Conversation folder if doesn't exist
         os.makedirs("Conversation", exist_ok=True)
         file_path = os.path.join("Conversation", actual_filename)
+
+        # 3. Save the conversation history as JSON
         with open(file_path, "w", encoding="utf-8") as file:
             json.dump(history, file, indent=4)
-
 
         return True, actual_filename
 
@@ -108,42 +117,35 @@ def save_conversation(history):
 
 
 def load_conversation():
+    # 1. Get saved conversation files
     new_history = []
-    old_history = os.listdir("Conversation")
-    if old_history:
-        for history in old_history:
-            if history.endswith(".json"):
-                new_history.append(history)
+    for history in os.listdir("Conversation"):
+        if history.endswith(".json"):
+            new_history.append(history)
         
-    if new_history:
-        for index, history in enumerate(new_history, start=1):
-            print(f"{index}. {history}")
-
-        try:
-            number = int(input("Enter file number: "))
-        except ValueError:
-            return False, "Invalid input!"
-
-        if number < 1 or number > len(new_history):
-            return False, "Invalid selection!"
-
-        
-        index_number = number - 1
-        selected_file = new_history[index_number]
-
-        try:
-            file_path = os.path.join("Conversation", selected_file)
-            with open(file_path, "r", encoding="utf-8") as file:
-                loaded_history = json.load(file)
-                return True, loaded_history
-        except FileNotFoundError:
-            return False, "File not found with selected number"
-    else:
+    if not new_history:
         return False, "No saved conversation found."
-
-
-
-
-
     
+    # 2. Display available conversations and get user selection
+    for index, history in enumerate(new_history, start=1):
+        print(f"{index}. {history}")
+
+    try:
+        number = int(input("Enter file number: "))
+    except ValueError:
+        return False, "Invalid input!"
+
+    if number < 1 or number > len(new_history):
+        return False, "Invalid selection!"
+
         
+    # 3. Load selected conversation   
+    selected_file = new_history[number-1]
+
+    try:
+        file_path = os.path.join("Conversation", selected_file)
+        with open(file_path, "r", encoding="utf-8") as file:
+            loaded_history = json.load(file)
+            return True, loaded_history
+    except FileNotFoundError:
+        return False, "File not found with selected number"
