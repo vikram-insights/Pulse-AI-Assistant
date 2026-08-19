@@ -95,25 +95,4 @@ def convert_currency(amount, source, target):
                         
 
 
-        
-        
-
-
-                
-
-
-
-        
-        
-        
-
-        
-
-
-
-                
-        
-         
-
-
 
