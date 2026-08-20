@@ -47,6 +47,7 @@ def start_ai_chat():
         exit   - Exit conversation
         /save  - Save conversation
         /load  - Load the selected conversation
+        /delete - Delete the conversation file
                    
         """)
             continue
@@ -82,6 +83,13 @@ def start_ai_chat():
             else:
                 print(result)
             continue
+
+        elif command == "/delete":
+            success, result = delete_conversation()
+            print(result)
+            continue
+
+
 
         # 3. Send the message to the AI
         success, result = ask_ai(message, history)
@@ -149,3 +157,40 @@ def load_conversation():
             return True, loaded_history
     except FileNotFoundError:
         return False, "File not found with selected number"
+
+
+
+
+def delete_conversation():
+    # 1. Get saved conversation files
+    new_history = []
+    for history in os.listdir("Conversation"):
+        if history.endswith(".json"):
+            new_history.append(history)
+        
+    if not new_history:
+        return False, "No saved conversation found."
+    
+    # 2. Display available conversations and get user selection
+    for index, history in enumerate(new_history, start=1):
+        print(f"{index}. {history}")
+
+    try:
+        number = int(input("Enter file number: "))
+    except ValueError:
+        return False, "Invalid input!"
+
+    if number < 1 or number > len(new_history):
+        return False, "Invalid selection!"
+
+        
+    # 3. Delete selected conversation   
+    selected_file = new_history[number - 1]
+
+    try:
+        file_path = os.path.join("Conversation", selected_file)
+        os.remove(file_path)
+        return True, "File deleted successfully."
+    except FileNotFoundError:
+        return False, "File not found with selected number"
+
