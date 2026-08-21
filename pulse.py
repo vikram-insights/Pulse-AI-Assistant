@@ -28,9 +28,21 @@ def start_ai_chat():
         message = input(Fore.CYAN + "You 👤 : " + Style.RESET_ALL) 
 
         command = message.strip().lower()
+
         if command == "/clear":
-            history.clear()
-            print("🧹 Conversation history cleared.")
+            confirmation = input("Are you sure? (y/n) : ").strip().lower()
+            success, result = check_empty_string(confirmation=confirmation)
+            if not success:
+                print(result)
+                continue
+
+            if confirmation == "y":
+                history.clear()
+                print("🧹 Conversation history cleared.")
+            elif confirmation == "n":
+                print("Cancelled.")
+            else:
+                print("Invalid confirmation input!")
             continue
 
         elif command == "exit":
