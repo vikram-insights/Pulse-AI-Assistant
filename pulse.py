@@ -60,6 +60,7 @@ def start_ai_chat():
         /save  - Save conversation
         /load  - Load the selected conversation
         /delete - Delete the conversation file
+        /count - Show conversation exchange count
                    
         """)
             continue
@@ -99,6 +100,10 @@ def start_ai_chat():
         elif command == "/delete":
             success, result = delete_conversation()
             print(result)
+            continue
+
+        elif command == "/count":
+            print(f"Conversation exchanges: {len(history)}")
             continue
 
 
