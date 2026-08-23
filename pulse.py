@@ -61,6 +61,7 @@ def start_ai_chat():
         /load  - Load the selected conversation
         /delete - Delete the conversation file
         /count - Show conversation exchange count
+        /search - Search conversation using keyword
                    
         """)
             continue
@@ -105,6 +106,32 @@ def start_ai_chat():
         elif command == "/count":
             print(f"Conversation exchanges: {len(history)}")
             continue
+
+        elif command == "/search":
+
+            found = False
+            # 1. Get the input from the user
+            search_term = input("Enter keyword: ").strip().lower()
+
+            # 2. Validating the input
+            success, result = check_empty_string(search_term=search_term)
+            if not success:
+                print(result)
+                continue
+
+            # 3. Check if the keyword is present in the history
+            for chat in history:
+                if result in chat["user"] or result in chat["assistant"]:
+                    # 4. Display the matching conversation
+                    print("Conversation found successfully ✅")
+                    print(chat)
+                    found = True
+
+            if not found:
+                print("No conversation found with this keyword!")
+
+            
+
 
 
 
