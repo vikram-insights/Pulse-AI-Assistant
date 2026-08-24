@@ -56,12 +56,13 @@ def start_ai_chat():
         /clear - Clear the conversation history
         /help  - Show available commands
         /history - Show conversation history
-        exit   - Exit conversation
+        /exit   - Exit conversation
         /save  - Save conversation
         /load  - Load the selected conversation
         /delete - Delete the conversation file
         /count - Show conversation exchange count
         /search - Search conversation using keyword
+        /last  - Load the selected conversation
                    
         """)
             continue
@@ -130,6 +131,13 @@ def start_ai_chat():
             if not found:
                 print("No conversation found with this keyword!")
 
+        elif command == "/last":
+            if history:
+                print(history[-1]["user"])
+                print(history[-1]["assistant"])
+            else:
+                print("No conversation found!")
+            continue
             
 
 
