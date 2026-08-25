@@ -138,7 +138,15 @@ def start_ai_chat():
             else:
                 print("No conversation found!")
             continue
-            
+
+
+        elif command == "/about":
+            print("🤖 Pulse AI Assistant")
+            print("Version   : 1.2")
+            print("Language  : Python")
+            print("AI Model  : Gemini")
+            print("Developer : Vikram") 
+            continue           
 
 
 
