@@ -111,26 +111,50 @@ def start_ai_chat():
         elif command == "/search":
 
             found = False
+
             # 1. Get the input from the user
             search_term = input("Enter keyword: ").strip().lower()
 
-            # 2. Validating the input
+            # 2. Validate the input
             success, result = check_empty_string(search_term=search_term)
             if not success:
                 print(result)
                 continue
 
-            # 3. Check if the keyword is present in the history
-            for chat in history:
-                if result in chat["user"] or result in chat["assistant"]:
-                    # 4. Display the matching conversation
-                    print("Conversation found successfully ✅")
-                    print(chat)
-                    found = True
+            print(f"\n🔍 Search results for: {search_term}")
 
+            # 3. Get all saved conversation files
+            for filename in os.listdir("Conversation"):
+                if not filename.endswith(".json"):
+                    continue
+
+                file_path = os.path.join("Conversation", filename)
+
+                try:
+                    with open(file_path, "r", encoding="utf-8") as file:
+                     saved_history = json.load(file)
+
+                    # 4. Search inside the conversation
+                    for chat in saved_history:
+                        if (
+                            search_term in chat["user"].lower()
+                            or search_term in chat["assistant"].lower()
+                        ):
+                            
+                            print(f"You    : {chat['user']}")
+                            print(f"Pulse  : {chat['assistant']}")
+                            found = True
+
+                except (FileNotFoundError, json.JSONDecodeError):
+                    continue
+
+            # 5. Display result status
             if not found:
                 print("No conversation found with this keyword!")
 
+            continue
+
+                
         elif command == "/last":
             if history:
                 print(history[-1]["user"])
