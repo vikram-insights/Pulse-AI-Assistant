@@ -132,7 +132,7 @@ def start_ai_chat():
 
                 try:
                     with open(file_path, "r", encoding="utf-8") as file:
-                     saved_history = json.load(file)
+                        saved_history = json.load(file)
 
                     # 4. Search inside the conversation
                     for chat in saved_history:
@@ -152,6 +152,15 @@ def start_ai_chat():
             if not found:
                 print("No conversation found with this keyword!")
 
+            continue
+
+
+        elif command == "/export":
+            success, result = export_conversation(history)
+            if success:
+                print(f"Conversation exported successfully: {result}")
+            else:
+                print(result)
             continue
 
                 
@@ -206,6 +215,32 @@ def save_conversation(history):
 
     except Exception as e:
         return False, f"Save Error: {e}"
+
+
+def export_conversation(history):
+    
+    # 1. Generate a unique filename using the current date and time
+    actual_filename = (
+        "Exports_" + datetime.now().strftime("%d_%m_%Y_%H_%M_%S") + ".txt"
+    )
+
+    try:
+        # 2. Create the Conversation folder if it doesn't exist
+        os.makedirs("Exports", exist_ok=True)
+        file_path = os.path.join("Exports", actual_filename)
+
+        # 3. Save the conversation history as text
+        with open(file_path, "w", encoding="utf-8") as file:
+            for chat in history:
+                file.write(f"You : {chat['user']}\n")
+                file.write(f"Pulse : {chat['assistant']}\n\n")
+
+        # 4. Return the export result
+        return True, actual_filename
+
+    except Exception as e:
+        return False, f"Export Error: {e}"
+    
 
 
 def load_conversation():
