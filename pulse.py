@@ -63,6 +63,7 @@ def start_ai_chat():
         /count - Show conversation exchange count
         /search - Search conversation using keyword
         /last  - Load the selected conversation
+        /stats - Show the current active conversation stats
                    
         """)
             continue
@@ -170,6 +171,26 @@ def start_ai_chat():
                 print(history[-1]["assistant"])
             else:
                 print("No conversation found!")
+            continue
+
+
+        elif command == "/stats":
+            user_words = 0
+            assistant_words = 0
+
+            for chat in history:
+                user_words += len(chat["user"].split())
+                assistant_words += len(chat["assistant"].split())
+
+            total_words = user_words + assistant_words
+
+            print("\n📊 Conversation Stats")
+            print("-" * 30)
+            print(f"Exchanges       : {len(history)}")
+            print(f"User words      : {user_words}")
+            print(f"Pulse words     : {assistant_words}")
+            print(f"Total words     : {total_words}")
+
             continue
 
 
