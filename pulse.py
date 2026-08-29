@@ -64,6 +64,7 @@ def start_ai_chat():
         /search - Search conversation using keyword
         /last  - Load the selected conversation
         /stats - Show the current active conversation stats
+        /retry - Regenerate the response to the last message
                    
         """)
             continue
@@ -171,6 +172,29 @@ def start_ai_chat():
                 print(history[-1]["assistant"])
             else:
                 print("No conversation found!")
+            continue
+
+
+        elif command == "/retry":
+            if not history:
+                print("No conversation to retry!")
+                continue
+
+            last_chat = history.pop()
+            message = last_chat["user"]
+
+            success, result = ask_ai(message, history)
+
+            if success:
+                history.append({
+                    "user": message,
+                    "assistant": result
+                })
+            else:
+                # Restore the previous conversation if retry fails
+                history.append(last_chat)
+                print(Fore.RED + result + Style.RESET_ALL)
+
             continue
 
 
