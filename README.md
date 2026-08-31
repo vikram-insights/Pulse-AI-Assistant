@@ -1,7 +1,7 @@
 <div align="center">
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Version](https://img.shields.io/badge/Version-1.0-blue?style=for-the-badge)
+![Version](https://img.shields.io/badge/Version-1.2-blue?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Active_Development-brightgreen?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-orange?style=for-the-badge)
 
