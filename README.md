@@ -138,7 +138,7 @@ Planned Features:
 
 ---
 
-🤖 Version 1.2 (Ongoing)
+🤖 Version 1.2 (✅ Completed)
 
 Focus: AI
 
@@ -152,7 +152,7 @@ Planned Features:
 
 ---
 
-🎙️ Version 1.3
+🎙️ Version 1.3 (Ongoing)
 
 Focus: Voice Assistant
 
