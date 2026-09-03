@@ -669,17 +669,18 @@ def main():
                 print("6. Find Weekday")
                 print("7. Check Weekend")
                 print("8. Date Difference")
-                print("9. Back")
+                print("9. Check Next Leap Year")
+                print("10. Back")
                 print("=" * 30)
 
                 #! -------- CHOICE HANDLING AT TOP --------
                 try:
-                    cal_choice = int(input("Enter choice (1-9) : "))
+                    cal_choice = int(input("Enter choice (1-10) : "))
                 except ValueError as e:
                     print("❌ Invalid choice input!")
                     continue
 
-                if cal_choice == 9:
+                if cal_choice == 10:
                     print("-" * 26)
                     print("Thank you for using!")
                     print("Goodbye👋")
@@ -687,7 +688,7 @@ def main():
                     break
 
                 #! Choice validation
-                if cal_choice < 1 and cal_choice > 9:
+                if cal_choice < 1 and cal_choice > 10:
                     print("❌Invalid choice!")
                     continue
 
@@ -759,6 +760,21 @@ def main():
                     print("-" * 30)
                     print(result)
                     print("-" * 30)
+
+
+                #! 9. Find the next leap year
+                elif cal_choice == 9:
+                    year = input("Enter year : ")
+                    success, result = calendar_utils.next_leap_year(year)
+
+                    if success:
+                        print("-" * 30)
+                        print(f"Next leap year : {result}")
+                        print("-" * 30)
+                    else:
+                        print("-" * 30)
+                        print(result)
+                        print("-" * 30)
 
 
         elif choice == 12:

@@ -148,3 +148,25 @@ def date_difference(date1, date2):
     diff = date_2 - date_1
     days = abs(diff.days)
     return True, f"Difference between {date_1.strftime('%d %B %Y')} and {date_2.strftime('%d %B %Y')} is {days} days."
+
+
+
+#! 9. FIND NEXT LEAP YEAR
+def next_leap_year(year):
+    # 1. Check empty string 
+    year_success, year_result = check_empty_string(year=year)
+    if not year_success:
+        return False, year_result
+
+    # 2. Validate year
+    success, result = validate_year(year)
+    if not success:
+        return False, result
+
+    # 3. 
+    valid_year = result
+    next_year = valid_year + 1
+
+    while not calendar.isleap(next_year):
+        next_year += 1
+    return True, next_year
