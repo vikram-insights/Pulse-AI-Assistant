@@ -764,13 +764,16 @@ def main():
 
                 #! 9. Find the next leap year
                 elif cal_choice == 9:
+                    # 1. Take input from the users
                     year = input("Enter year : ")
                     success, result = calendar_utils.next_leap_year(year)
 
+                    # 2. Displays the result
                     if success:
                         print("-" * 30)
                         print(f"Next leap year : {result}")
                         print("-" * 30)
+
                     else:
                         print("-" * 30)
                         print(result)
