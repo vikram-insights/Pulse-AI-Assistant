@@ -45,11 +45,13 @@ def get_weather(latitude, longitude):
 def get_bitcoin_price():
         url = f"https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd"
 
+        #! Get data from the API
         try:
                 response = requests.get(url)
                 response.raise_for_status()
                 data = response.json()
-                
+
+                #! Get the bitcoin price
                 bitcoin_price = data["bitcoin"]["usd"]
                 return bitcoin_price
         except requests.RequesException:
