@@ -48,16 +48,20 @@ def view_reminders():
 
 
 def update_reminder(number, new_task, new_date, new_time):
+    # 1. Load the reminder
     reminders = load_reminders()
+
+    # 2. Check empty reminder
     if not reminders:
         return "No reminders found"
-        
+
+    # 3. Validates reminder number
     if not (1 <= number <= len(reminders)):
         return "Invalid Index!"
         
     current_reminder = reminders[number - 1]
     
-    
+    # 4. Make changes if arguments are made
     if new_date != "":
         try:
             datetime.strptime(new_date, "%d-%m-%Y")
@@ -71,7 +75,7 @@ def update_reminder(number, new_task, new_date, new_time):
         except ValueError:
             return "Invalid time format! Use HH:MM."
             
-    
+    # 5. No changes are made if arguments remains emoty
     if new_task == "" and new_date == "" and new_time == "":
         return "No changes made."
 
@@ -81,7 +85,7 @@ def update_reminder(number, new_task, new_date, new_time):
         current_reminder["date"] = new_date
     if new_time != "":
         current_reminder["time"] = new_time
-        
+    # 6. Save the reminder   
     save_reminders(reminders)
     return "Reminder updated successfully"   
     
