@@ -5,6 +5,7 @@ from validation import validate_year, check_empty_string, validate_month
 
 
 load_dotenv()
+# Get the API key from the env file
 api_key = os.getenv("CALENDARIFIC_API_KEY")
 url = "https://calendarific.com/api/v2/holidays"
 
