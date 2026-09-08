@@ -15,10 +15,12 @@ from validation import (
 
 #! 1. SHOW CURRENT MONTH FUNCTION
 def current_month():
+    # 1. Fetch the current date 
     current_date = datetime.now()
     month = current_date.month
     year = current_date.year
     month_view = calendar.month(year, month)
+    # 2. Display the result
     return month_view
 
 
