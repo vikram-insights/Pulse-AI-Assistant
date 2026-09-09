@@ -147,7 +147,10 @@ def date_difference(date1, date2):
     if not success2:
         return False, date_2
 
+    # 2. Count difference between two dates
     diff = date_2 - date_1
+
+    # 3. Count absolue day difference
     days = abs(diff.days)
     return True, f"Difference between {date_1.strftime('%d %B %Y')} and {date_2.strftime('%d %B %Y')} is {days} days."
 
