@@ -72,11 +72,16 @@ def update_notes(number, new_title, new_content):
 
 
 def search_notes(title):
+    # 1. Validate empty input
     if not title.strip():
         return False, "Please... Enter a title."
-        
+    # 2. Load the notes  
     notes = load_notes()
+
+
     results = []
+
+    # 3. Add the note in the empty list
     for note in notes:
         if title.lower() in note["title"].lower():
             results.append(note)
