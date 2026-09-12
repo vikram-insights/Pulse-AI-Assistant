@@ -168,7 +168,7 @@ def next_leap_year(year):
     if not success:
         return False, result
 
-    # 3. 
+    # 3. Accepts parced year
     valid_year = result
     next_year = valid_year + 1
 
