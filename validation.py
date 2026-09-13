@@ -168,6 +168,7 @@ def validate_date(year, month, day):
     if not day_success:
         return False, day_result
 
+    # 5. Returns the actual date if not any error
     try:
         actual_date = datetime(year_result, month_result, day_result)
         return True, actual_date
