@@ -73,6 +73,7 @@ def festivals_by_month(year, month):
 
     month_holidays = []
 
+    # 3. Find the specific holiday form the list of the holidays
     for holiday in holidays:
         if holiday["date"]["datetime"]["month"] == month_result:
             holiday_name = holiday["name"]
