@@ -49,7 +49,7 @@ def chat_with_ai(message, history):
 
         ai_response = ""
         first_chunk = True
-        # Displays result chunk by chunk
+        # Displays result chunk by chunks
         for chunk in response:
             if first_chunk:
                 # Handles thinking....
