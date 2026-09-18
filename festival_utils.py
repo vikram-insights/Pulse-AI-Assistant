@@ -113,7 +113,7 @@ def holiday_details(year,name):
 
 # ? 5. FIND HOLIDAYS BY TYPE
 def holidays_by_type(year, holiday_type_input):
-    # 1. Validate empty strings
+    # 1. Validate empty string
     input_success, input_result = check_empty_string(
         year=year, holiday_type=holiday_type_input
     )
