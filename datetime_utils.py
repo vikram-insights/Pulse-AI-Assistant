@@ -3,7 +3,7 @@ from datetime import datetime
 
 
 def get_datetime():
-    # 1. Fetch  the today's date and time
+    # 1. Fetch date and time
     today = datetime.now()
 
     # 2. Converts the date in desired format
