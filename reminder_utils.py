@@ -55,7 +55,7 @@ def update_reminder(number, new_task, new_date, new_time):
     if not reminders:
         return "No reminders found"
 
-    # 3. Validates reminder number
+    # 3. Validates reminder numbers
     if not (1 <= number <= len(reminders)):
         return "Invalid Index!"
         
