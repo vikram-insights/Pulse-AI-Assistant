@@ -75,7 +75,7 @@ def update_reminder(number, new_task, new_date, new_time):
         except ValueError:
             return "Invalid time format! Use HH:MM."
             
-    # 5. No changes are made if arguments remains emoty
+    # 5. No changes are made if arguments remains empty
     if new_task == "" and new_date == "" and new_time == "":
         return "No changes made."
 
