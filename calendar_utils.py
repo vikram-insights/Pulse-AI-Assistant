@@ -158,7 +158,7 @@ def date_difference(date1, date2):
 
 #! 9. FIND NEXT LEAP YEAR
 def next_leap_year(year):
-    # 1. Check empty string and validates
+    # 1. Check empty string and validate
     year_success, year_result = check_empty_string(year=year)
     if not year_success:
         return False, year_result
