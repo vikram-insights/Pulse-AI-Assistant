@@ -48,7 +48,7 @@ def find_festival(year,name):
     if not year_success:
         return False, holidays
 
-    # 3. Get the list of the Indian festivals
+    # 3. Get the list of the Indian festival
 
     for holiday in holidays:
         if name.strip().lower() in holiday["name"].strip().lower():
