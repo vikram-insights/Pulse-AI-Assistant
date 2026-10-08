@@ -43,7 +43,7 @@ def find_festival(year,name):
     if not input_success:
         return False, input_result
 
-    # 2. Validate year and get the result from api
+    # 2. Validate year and get the result from apis
     year_success, holidays = get_indian_holidays(year)
     if not year_success:
         return False, holidays
