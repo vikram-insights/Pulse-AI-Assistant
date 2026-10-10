@@ -38,7 +38,7 @@ def get_indian_holidays(year):
 
 # ? 2. FIND THE FESTIVAL BY NAME
 def find_festival(year,name):
-    # 1. Validate empty strings
+    # 1. Validate empty string
     input_success, input_result = check_empty_string(year=year,name=name)
     if not input_success:
         return False, input_result
