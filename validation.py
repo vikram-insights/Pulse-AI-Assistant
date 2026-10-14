@@ -13,7 +13,7 @@ def validate_year(year):
     # 1. Remove extra spaces
     cleaned_year = year.strip()
 
-    # 2. Check empty strings
+    # 2. Check empty string
     if not cleaned_year:
         return False, "Year cannot be empty!"
 
