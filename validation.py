@@ -178,7 +178,7 @@ def validate_date(year, month, day):
 
 #! 6. VALIDATE DATE STRING
 def validate_date_string(date):
-    # 1. Validate empty string
+    # 1. Validate empty strings
     date = date.strip()
     if not date.strip():
         return False, "❌ Error ! Date is missing"
