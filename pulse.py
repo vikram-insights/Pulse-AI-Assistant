@@ -20,7 +20,7 @@ def start_ai_chat():
     print("Type 'exit' anytime to end the conversation.")
     history = []
 
-    # 1. Handle Pulse command
+    # 1. Handle Pulse commands
     while True:
         print("-" * 70)
 
