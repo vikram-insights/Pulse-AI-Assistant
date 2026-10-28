@@ -37,7 +37,7 @@ def chat_with_ai(message, history):
             "parts" : [{"text" : message}]
         })
 
-        # 2. Send the message to Gemini and Generate a responses
+        # 2. Send the message to Gemini and Generate a response
         thinking_text = "Pulse 🤖 : Thinking..."
         thinking = Fore.YELLOW + thinking_text + Style.RESET_ALL
         print(thinking, end="", flush=True)
